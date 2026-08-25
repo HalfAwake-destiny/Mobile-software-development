@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "default",
+  "navigationBarTitleText": "我的博客",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#123b51",
+  "renderer": "webview",
+  "usingComponents": {}
+}

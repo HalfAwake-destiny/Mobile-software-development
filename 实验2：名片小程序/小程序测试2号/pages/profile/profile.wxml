@@ -1,0 +1,52 @@
+<navigation-bar title="雪" back="{{true}}" color="#ffffff" background="#101c28"></navigation-bar>
+
+<scroll-view class="profile-scroll" scroll-y type="list">
+  <view class="hero">
+    <image class="hero-image" src="/images/yuki-night.webp" mode="aspectFill"></image>
+    <view class="hero-shade"></view>
+    <view class="hero-copy">
+      <text class="hero-kicker">村上春树《舞！舞！舞！》</text>
+      <text class="hero-title">雪 / Yuki</text>
+      <text class="hero-note">敏锐、早熟，也保留着属于十三岁的孤独。</text>
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="section">
+      <text class="section-label">人物</text>
+      <text class="body">十三岁的女孩。作家牧村拓与摄影师雨的女儿，常戴着耳机，用音乐把自己和喧闹的世界隔开。</text>
+    </view>
+
+    <view class="facts">
+      <view class="fact">
+        <text class="fact-value">13</text>
+        <text class="fact-label">年龄</text>
+      </view>
+      <view class="fact">
+        <text class="fact-value">直觉</text>
+        <text class="fact-label">特别之处</text>
+      </view>
+      <view class="fact">
+        <text class="fact-value">音乐</text>
+        <text class="fact-label">随身陪伴</text>
+      </view>
+    </view>
+
+    <view class="section">
+      <text class="section-label">印象</text>
+      <text class="body">她不擅长解释自己，却能感受到细微而异常的东西。与“我”的相处，让两个孤独的人建立起一种克制、安静的信赖。</text>
+    </view>
+
+    <view class="section last-section">
+      <text class="section-label">关键词</text>
+      <view class="tags">
+        <text class="tag">耳机</text>
+        <text class="tag">敏锐</text>
+        <text class="tag">沉默</text>
+        <text class="tag">信赖</text>
+      </view>
+    </view>
+
+    <text class="source-note">非官方人物印象卡 · 图片与文字仅作个人学习展示</text>
+  </view>
+</scroll-view>

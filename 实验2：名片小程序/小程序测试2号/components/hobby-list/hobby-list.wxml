@@ -1,0 +1,9 @@
+<view class="hobby-list">
+  <view class="hobby-item" wx:for="{{items}}" wx:key="name">
+    <view class="hobby-icon" aria-hidden="true">{{item.icon}}</view>
+    <view class="hobby-copy">
+      <text class="hobby-name">{{item.name}}</text>
+      <text class="hobby-note">{{item.note}}</text>
+    </view>
+  </view>
+</view>

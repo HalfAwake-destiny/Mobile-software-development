@@ -1,0 +1,47 @@
+<navigation-bar title="个人名片" back="{{false}}" color="#183446" background="#f5f7f6"></navigation-bar>
+
+<scroll-view class="page-scroll" scroll-y type="list">
+  <view class="card-page">
+    <view class="cover" aria-label="个人名片头图">
+      <image
+        class="cover-image"
+        src="/images/profile-cover.jpg"
+        mode="aspectFill"
+      ></image>
+    </view>
+
+    <view class="profile">
+      <text class="name">池晋原</text>
+      <text class="school">中国海洋大学信息学部</text>
+
+      <view class="section">
+        <view class="section-title">
+          <view class="section-mark"></view>
+          <text>关于我</text>
+        </view>
+        <text class="bio">你好，我是池晋原，正在学习移动软件开发。我喜欢在安静的时光里探索新的知识，也在持续记录学习和生活中的想法。</text>
+      </view>
+
+      <view class="section">
+        <view class="section-title">
+          <view class="section-mark"></view>
+          <text>兴趣爱好</text>
+        </view>
+        <hobby-list items="{{hobbies}}"></hobby-list>
+      </view>
+
+      <button
+        class="blog-button"
+        bindtap="openBlog"
+        hover-class="blog-button--pressed"
+        aria-label="打开池晋原的博客"
+      >
+        <view class="blog-copy">
+          <text class="blog-label">访问我的博客</text>
+          <text class="blog-address">half-awake.top</text>
+        </view>
+        <text class="blog-arrow" aria-hidden="true">↗</text>
+      </button>
+    </view>
+  </view>
+</scroll-view>

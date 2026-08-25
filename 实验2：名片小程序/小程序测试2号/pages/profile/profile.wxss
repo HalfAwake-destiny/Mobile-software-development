@@ -1,0 +1,149 @@
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #eef2f4;
+}
+
+.profile-scroll {
+  flex: 1;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 510rpx;
+  overflow: hidden;
+  background: #101c28;
+}
+
+.hero-image,
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-shade {
+  background: linear-gradient(180deg, rgba(10, 18, 27, 0.04) 34%, rgba(10, 18, 27, 0.86) 100%);
+}
+
+.hero-copy {
+  position: absolute;
+  left: 44rpx;
+  right: 44rpx;
+  bottom: 38rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-kicker {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 22rpx;
+  line-height: 1.4;
+}
+
+.hero-title {
+  margin-top: 10rpx;
+  color: #ffffff;
+  font-size: 52rpx;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.hero-note {
+  max-width: 600rpx;
+  margin-top: 12rpx;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 25rpx;
+  line-height: 1.6;
+}
+
+.content {
+  padding: 42rpx 40rpx calc(52rpx + env(safe-area-inset-bottom));
+}
+
+.section {
+  padding: 0 4rpx 38rpx;
+  border-bottom: 1rpx solid #d8e0e5;
+  margin-bottom: 38rpx;
+}
+
+.section-label {
+  display: block;
+  margin-bottom: 16rpx;
+  color: #70818c;
+  font-size: 22rpx;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.body {
+  color: #2a3943;
+  font-size: 29rpx;
+  line-height: 1.85;
+}
+
+.facts {
+  display: flex;
+  padding: 4rpx 0 42rpx;
+  border-bottom: 1rpx solid #d8e0e5;
+  margin-bottom: 38rpx;
+}
+
+.fact {
+  width: 33.333%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1rpx solid #d8e0e5;
+}
+
+.fact:last-child {
+  border-right: 0;
+}
+
+.fact-value {
+  color: #1e303c;
+  font-size: 31rpx;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.fact-label {
+  margin-top: 8rpx;
+  color: #81909a;
+  font-size: 21rpx;
+  line-height: 1.4;
+}
+
+.last-section {
+  padding-bottom: 10rpx;
+  border-bottom: 0;
+  margin-bottom: 34rpx;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.tag {
+  padding: 12rpx 22rpx;
+  border: 1rpx solid #bac7cf;
+  border-radius: 6rpx;
+  color: #536773;
+  font-size: 24rpx;
+  line-height: 1.4;
+}
+
+.source-note {
+  display: block;
+  padding-top: 10rpx;
+  color: #9aa6ad;
+  font-size: 20rpx;
+  line-height: 1.6;
+  text-align: center;
+}
