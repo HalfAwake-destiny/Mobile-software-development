@@ -1,5 +1,0 @@
-<image mode="widthFix" src="../../image/first.png" class="first-image"></image>
-<view class="container">
-  <text class="message">{{message}}</text>
-  <button class="action-button"bindtap="changeText">点击我</button>
-</view>
