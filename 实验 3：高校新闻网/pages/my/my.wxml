@@ -1,0 +1,97 @@
+<view class="profile-header">
+  <view class="profile-header__eyebrow">MY READING</view>
+  <view class="profile-header__title">校园阅读中心</view>
+  <view class="profile-header__copy">收藏每一次值得回看的校园现场</view>
+</view>
+
+<view class="account-card">
+  <view class="account-main">
+    <image wx:if="{{isLogin}}" class="account-avatar" src="{{avatarUrl}}" mode="aspectFill"></image>
+    <view wx:else class="account-avatar account-avatar--empty">海</view>
+    <view class="account-copy">
+      <text>{{isLogin ? nickName : '尚未登录'}}</text>
+      <view>{{isLogin ? '海大新闻读者 · 阅读档案已开启' : '登录后使用收藏与阅读历史'}}</view>
+    </view>
+    <view class="account-badge {{isLogin ? 'account-badge--online' : ''}}"><text></text>{{isLogin ? '在线' : '访客'}}</view>
+  </view>
+
+  <button class="login-action" wx:if="{{!isLogin}}" bindtap="getUserInfo" hover-class="login-action--pressed">
+    <view class="login-action__wechat">微</view>
+    <view class="login-action__copy"><text>使用微信登录</text><view>仅获取头像和昵称，阅读数据保存在本机</view></view>
+    <view class="login-action__arrow">›</view>
+  </button>
+
+  <view class="account-actions" wx:else>
+    <view class="account-stats">
+      <view><text>{{number}}</text><view>收藏文章</view></view>
+      <view class="account-stats__divider"></view>
+      <view><text>{{historyList.length}}</text><view>阅读记录</view></view>
+    </view>
+    <view class="account-actions__commands">
+      <button class="profile-edit-action" bindtap="openProfileEditor">编辑资料</button>
+      <button class="logout-action" bindtap="logout" hover-class="logout-action--pressed">退出登录</button>
+    </view>
+  </view>
+</view>
+
+<view class="reading-section">
+  <view class="reading-section__topline">
+    <view><text>我的内容</text><view>LIBRARY</view></view>
+    <button wx:if="{{isLogin && activeView === 'favorites' && newsList.length}}" bindtap="toggleEdit">{{editing ? '完成管理' : '管理收藏'}}</button>
+    <button wx:if="{{isLogin && activeView === 'history' && historyList.length}}" bindtap="clearHistory">清空历史</button>
+  </view>
+
+  <view class="reading-tabs">
+    <view class="{{activeView === 'favorites' ? 'active' : ''}}" data-view="favorites" bindtap="switchView">收藏 <text>{{number}}</text></view>
+    <view class="{{activeView === 'history' ? 'active' : ''}}" data-view="history" bindtap="switchView">历史 <text>{{historyList.length}}</text></view>
+  </view>
+
+  <view class="news-list library-list" wx:if="{{isLogin && activeView === 'favorites' && newsList.length}}">
+    <view class="managed-item" wx:for="{{newsList}}" wx:key="id" data-id="{{item.id}}" bindtap="handleFavoriteItem">
+      <view class="select-dot {{selectedMap[item.id] ? 'selected' : ''}}" wx:if="{{editing}}">{{selectedMap[item.id] ? '✓' : ''}}</view>
+      <view class="news-item">
+        <image class="news-item__image" src="{{item.poster}}" mode="aspectFill"></image>
+        <view class="news-item__body"><view class="news-item__topline"><text class="news-item__category">{{item.category}}</text><text class="news-item__date">{{item.add_date}}</text></view><text class="news-item__title">{{item.title}}</text><text class="news-item__source">{{item.source}}</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="news-list library-list" wx:if="{{isLogin && activeView === 'history' && historyList.length}}">
+    <view class="news-item" wx:for="{{historyList}}" wx:key="id" data-id="{{item.id}}" bindtap="goToDetail">
+      <image class="news-item__image" src="{{item.poster}}" mode="aspectFill"></image>
+      <view class="news-item__body"><view class="news-item__topline"><text class="news-item__category">{{item.category}}</text><text class="news-item__date">最近阅读</text></view><text class="news-item__title">{{item.title}}</text><text class="news-item__source">{{item.source}}</text></view>
+    </view>
+  </view>
+
+  <view class="library-empty" wx:if="{{!isLogin || (activeView === 'favorites' && !newsList.length) || (activeView === 'history' && !historyList.length)}}">
+    <view class="library-empty__icon">{{activeView === 'favorites' ? '♡' : '◷'}}</view>
+    <view class="library-empty__title">{{!isLogin ? '登录后开启阅读档案' : (activeView === 'favorites' ? '收藏夹还是空的' : '暂时没有阅读记录')}}</view>
+    <view class="library-empty__copy">{{!isLogin ? '收藏、历史和阅读设置都会集中在这里' : '去首页发现更多校园报道'}}</view>
+  </view>
+</view>
+
+<view class="manage-spacer" wx:if="{{editing}}"></view>
+<view class="manage-bar" wx:if="{{editing}}"><text>已选择 {{selectedIds.length}} 篇</text><button bindtap="removeSelected">取消收藏</button></view>
+
+<view class="editor-mask" wx:if="{{showProfileEditor}}" bindtap="closeProfileEditor"></view>
+<view class="profile-editor" wx:if="{{showProfileEditor}}">
+  <view class="profile-editor__heading">
+    <view>
+      <text>{{profileEditorMode === 'login' ? '确认微信资料' : '编辑个人资料'}}</text>
+      <view>{{profileEditorMode === 'login' ? '请选择微信头像和昵称后登录' : '修改内容仅保存在本机'}}</view>
+    </view>
+    <button bindtap="closeProfileEditor">×</button>
+  </view>
+  <view class="avatar-editor">
+    <button class="avatar-picker" open-type="chooseAvatar" bindchooseavatar="chooseAvatar">
+      <image wx:if="{{draftAvatarUrl}}" src="{{draftAvatarUrl}}" mode="aspectFill"></image>
+      <view wx:else class="avatar-picker__empty">+</view>
+      <view>{{draftAvatarUrl ? '更换头像' : '选择微信头像'}}</view>
+    </button>
+  </view>
+  <view class="name-editor">
+    <text>昵称</text>
+    <input type="nickname" maxlength="16" value="{{draftNickName}}" bindinput="updateDraftName" placeholder="请输入昵称"></input>
+  </view>
+  <button class="profile-save" bindtap="saveProfile">{{profileEditorMode === 'login' ? '确认并登录' : '保存修改'}}</button>
+</view>

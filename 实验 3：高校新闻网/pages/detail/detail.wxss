@@ -1,0 +1,41 @@
+.progress-track { position: fixed; top: 0; right: 0; left: 0; z-index: 30; height: 6rpx; background: #e7ecef; }
+.progress-track view { height: 100%; background: #ed3b4f; transition: width .15s; }
+.reading-page { min-height: 100vh; color: #263a48; background: #fff; transition: background .2s, color .2s; }
+.article { min-height: 100vh; padding: 44rpx 30rpx 176rpx; box-sizing: border-box; }
+.article__kicker { color: #84929d; font-size: 19rpx; font-weight: 600; }
+.article__kicker text { margin-right: 14rpx; padding: 6rpx 12rpx; color: #fff; background: #ed3b4f; border-radius: 3rpx; }
+.article__title { margin-top: 28rpx; color: #102a3d; font-size: 46rpx; font-weight: 750; line-height: 1.4; }
+.article__meta { display: flex; justify-content: space-between; margin-top: 24rpx; padding-bottom: 24rpx; color: #89959e; font-size: 21rpx; border-bottom: 1rpx solid #e1e6ea; }
+.poster { display: block; width: 700rpx; max-width: 100%; margin: 32rpx 0 0; }
+.article__lead { margin: 34rpx 0 24rpx; padding: 20rpx 22rpx; color: #176b94; font-size: 28rpx; font-weight: 600; line-height: 1.6; background: #edf7f8; border-left: 7rpx solid #20c5d8; }
+.article__content { line-height: 1.95; text-align: justify; white-space: pre-wrap; }
+.article__content--small { font-size: 28rpx; }
+.article__content--medium { font-size: 32rpx; }
+.article__content--large { font-size: 37rpx; }
+.article__end { margin: 54rpx 0; color: #98a3aa; font-size: 21rpx; text-align: center; }
+.related { padding-top: 28rpx; border-top: 12rpx solid #f1f4f6; }
+.related__heading { margin-bottom: 18rpx; color: #172f40; font-size: 32rpx; font-weight: 700; }
+.related__item { display: flex; padding: 18rpx 0; border-bottom: 1rpx solid #e3e8eb; }
+.related__item image { width: 190rpx; height: 120rpx; margin-right: 18rpx; }
+.related__item > view { display: flex; flex: 1; min-width: 0; flex-direction: column; justify-content: space-between; }
+.related__item text { color: #203746; font-size: 27rpx; font-weight: 600; line-height: 1.4; }
+.related__item view view { color: #8b969e; font-size: 20rpx; }
+.reader-tools { position: fixed; right: 0; bottom: 0; left: 0; z-index: 20; display: flex; height: 100rpx; padding: 8rpx 16rpx calc(8rpx + env(safe-area-inset-bottom)); background: rgba(255,255,255,.97); border-top: 1rpx solid #dce3e8; box-sizing: content-box; }
+.reader-tools button { display: flex; height: 82rpx; margin: 0; padding: 0; flex: 1; flex-direction: column; align-items: center; justify-content: center; color: #526571; font-size: 19rpx; line-height: 1.1; background: transparent; }
+.reader-tools button::after { border: 0; }
+.reader-tools button text { margin-bottom: 7rpx; color: #176b94; font-size: 31rpx; }
+.reader-tools .saved, .reader-tools .saved text { color: #ed3b4f; }
+.settings-panel { position: fixed; right: 20rpx; bottom: 126rpx; left: 20rpx; z-index: 25; padding: 26rpx; background: #fff; border: 1rpx solid #dce3e8; border-radius: 7rpx; box-shadow: 0 8rpx 30rpx rgba(16,42,61,.18); }
+.settings-panel__title { margin-bottom: 20rpx; color: #172f40; font-size: 29rpx; font-weight: 700; }
+.settings-row { display: flex; height: 78rpx; align-items: center; justify-content: space-between; color: #435864; font-size: 25rpx; }
+.font-options { display: flex; }
+.font-options button { width: 70rpx; height: 58rpx; margin: 0 0 0 8rpx; padding: 0; color: #657680; font-size: 23rpx; line-height: 58rpx; background: #f1f4f6; border-radius: 4rpx; }
+.font-options button::after { border: 0; }
+.font-options .active { color: #fff; background: #176b94; }
+.reading-page--dark { color: #cbd3d8; background: #172027; }
+.reading-page--dark .article__title, .reading-page--dark .related__heading, .reading-page--dark .related__item text { color: #eef3f5; }
+.reading-page--dark .article__meta, .reading-page--dark .related__item { border-color: #34414a; }
+.reading-page--dark .article__lead { color: #9bd7df; background: #21333b; }
+.reading-page--dark .related { border-color: #11181d; }
+.reading-page--dark .reader-tools, .reading-page--dark .settings-panel { color: #d7dfe3; background: #222d34; border-color: #3a4850; }
+.reading-page--dark .settings-panel__title, .reading-page--dark .settings-row { color: #e8edef; }

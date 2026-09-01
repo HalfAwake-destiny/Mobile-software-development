@@ -1,0 +1,40 @@
+<view class="progress-track"><view style="width: {{progress}}%"></view></view>
+<view class="reading-page {{darkMode ? 'reading-page--dark' : ''}}">
+  <view class="article" wx:if="{{article}}">
+    <view class="article__kicker"><text>{{article.category}}</text> CAMPUS REPORT</view>
+    <view class="article__title">{{article.title}}</view>
+    <view class="article__meta"><text>{{article.source}} · {{article.add_date}}</text><text>{{progress}}%</text></view>
+    <image class="poster" src="{{article.poster}}" mode="widthFix"></image>
+    <view class="article__lead">聚焦校园发展，记录海大声音。</view>
+    <view class="article__content article__content--{{fontSize}}">{{article.content}}</view>
+    <view class="article__end">全文完</view>
+
+    <view class="related" wx:if="{{relatedNews.length}}">
+      <view class="related__heading">相关新闻</view>
+      <view class="related__item" wx:for="{{relatedNews}}" wx:key="id" data-id="{{item.id}}" bindtap="goToRelated">
+        <image src="{{item.poster}}" mode="aspectFill"></image>
+        <view><text>{{item.title}}</text><view>{{item.source}} · {{item.add_date}}</view></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="settings-panel" wx:if="{{showSettings}}">
+    <view class="settings-panel__title">阅读设置</view>
+    <view class="settings-row">
+      <text>正文字号</text>
+      <view class="font-options">
+        <button class="{{fontSize === 'small' ? 'active' : ''}}" data-size="small" bindtap="setFontSize">小</button>
+        <button class="{{fontSize === 'medium' ? 'active' : ''}}" data-size="medium" bindtap="setFontSize">中</button>
+        <button class="{{fontSize === 'large' ? 'active' : ''}}" data-size="large" bindtap="setFontSize">大</button>
+      </view>
+    </view>
+    <view class="settings-row" bindtap="toggleDarkMode"><text>夜间模式</text><switch checked="{{darkMode}}" color="#176b94"></switch></view>
+  </view>
+
+  <view class="reader-tools" wx:if="{{article}}">
+    <button bindtap="backToTop"><text>↑</text><view>顶部</view></button>
+    <button bindtap="toggleSettings"><text>Aa</text><view>设置</view></button>
+    <button class="saved" wx:if="{{isAdd}}" bindtap="cancelFavorites"><text>♥</text><view>已收藏</view></button>
+    <button wx:else bindtap="addFavorites"><text>♡</text><view>收藏</view></button>
+  </view>
+</view>
