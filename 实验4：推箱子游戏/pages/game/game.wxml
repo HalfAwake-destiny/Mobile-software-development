@@ -1,0 +1,93 @@
+<view class="container">
+  <!-- 顶部 HUD -->
+  <view class="hud">
+    <view class="hudCard">
+      <view class="hudLabel">关卡</view>
+      <view class="hudValue">{{levelNum}}</view>
+    </view>
+    <view class="hudCard">
+      <view class="hudLabel">步数</view>
+      <view class="hudValue">{{steps}}</view>
+    </view>
+    <view class="hudCard">
+      <view class="hudLabel">归位</view>
+      <view class="hudValue">{{boxDone}}<text class="hudSub">/{{boxTotal}}</text></view>
+    </view>
+  </view>
+
+  <!-- 历史最佳 -->
+  <view class="recordBar" wx:if="{{best > 0}}">
+    <text class="recordText">最佳 {{best}} 步 · {{bestStarText}}</text>
+  </view>
+
+  <!-- 游戏棋盘（支持滑动）。
+       canvas 必须常驻、不能用 wx:if 切换，否则节点销毁后绘图上下文会失效。
+       通关时用 hidden 暂时隐藏原生 canvas，并用普通 image 保留棋盘画面，避免 canvas 穿透弹窗。 -->
+  <view class="boardWrap" bindtouchstart="touchStart" bindtouchend="touchEnd">
+    <canvas
+      type="2d"
+      id="myCanvas"
+      class="canvas {{boardReady ? 'canvas-ready' : 'canvas-loading'}}"
+      hidden="{{showWin}}"
+    ></canvas>
+    <view class="boardPlaceholder" wx:if="{{!boardReady}}">
+      <view class="boardSpinner" aria-role="img" aria-label="棋盘加载中"></view>
+    </view>
+    <image class="canvas cover" src="{{snapshot}}" wx:if="{{snapshot}}"></image>
+  </view>
+
+  <!-- 方向键 -->
+  <view class="pad">
+    <view class="padRow">
+      <view class="padCell"></view>
+      <view class="padCell">
+        <view class="dirBtn" hover-class="dirBtn-hover" bindtap="up">
+          <view class="arrow up"></view>
+        </view>
+      </view>
+      <view class="padCell"></view>
+    </view>
+    <view class="padRow">
+      <view class="padCell">
+        <view class="dirBtn" hover-class="dirBtn-hover" bindtap="left">
+          <view class="arrow left"></view>
+        </view>
+      </view>
+      <view class="padCell">
+        <view class="dirBtn" hover-class="dirBtn-hover" bindtap="down">
+          <view class="arrow down"></view>
+        </view>
+      </view>
+      <view class="padCell">
+        <view class="dirBtn" hover-class="dirBtn-hover" bindtap="right">
+          <view class="arrow right"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 辅助按钮 -->
+  <view class="fnBar">
+    <view class="fnBtn" hover-class="fnBtn-hover" bindtap="undo">撤销</view>
+    <view class="fnBtn primary" hover-class="fnBtn-hover" bindtap="restartGame">重玩</view>
+  </view>
+
+</view>
+
+<!-- 通关弹窗：放在 container 之外，避免与 canvas 争抢层级 -->
+<view class="mask" wx:if="{{showWin}}" catchtouchmove="stopEvent">
+  <view class="modal">
+    <image class="modalBird" src="/images/icons/bird.png"></image>
+    <view class="modalTitle">通关啦</view>
+    <view class="modalStars">{{starText}}</view>
+    <view class="modalSteps">本次 {{steps}} 步</view>
+    <view class="modalRecord new" wx:if="{{isNewRecord}}">刷新纪录</view>
+    <view class="modalRecord" wx:else>最佳 {{best}} 步</view>
+    <view class="modalTip" wx:if="{{nextStarTip}}">{{nextStarTip}}</view>
+    <view class="modalBtns">
+      <view class="modalBtn" hover-class="modalBtn-hover" bindtap="goLevels">选关</view>
+      <view class="modalBtn" hover-class="modalBtn-hover" bindtap="restartGame">重玩</view>
+      <view class="modalBtn primary" hover-class="modalBtn-hover" bindtap="nextLevel">下一关</view>
+    </view>
+  </view>
+</view>

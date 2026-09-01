@@ -1,0 +1,33 @@
+<view class="container">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="logoRow">
+      <image class="logoIcon" src="/images/icons/bird.png"></image>
+      <view class="title">小鸟推猪</view>
+      <image class="logoIcon" src="/images/icons/pig.png"></image>
+    </view>
+    <view class="subtitle">把每一只小猪推进草窝里</view>
+  </view>
+
+  <!-- 关卡卡片 -->
+  <view class="levelBox">
+    <view
+      class="card {{item.cleared ? 'cleared' : ''}}"
+      wx:for="{{levels}}"
+      wx:key="level"
+      bindtap="chooseLevel"
+      data-level="{{item.level}}"
+      hover-class="card-hover"
+    >
+      <view class="cardTop">
+        <text class="cardNum">第 {{item.num}} 关</text>
+        <text class="cardBest" wx:if="{{item.cleared}}">{{item.best}} 步</text>
+      </view>
+      <image class="levelImg" src="/images/{{item.level}}.png" mode="aspectFit"></image>
+      <view class="cardStars">{{item.starText}}</view>
+    </view>
+  </view>
+
+  <!-- 底部说明 -->
+  <view class="footer">方向键或滑动屏幕操控小鸟</view>
+</view>

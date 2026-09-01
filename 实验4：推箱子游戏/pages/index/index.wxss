@@ -1,0 +1,107 @@
+/** pages/index/index.wxss **/
+
+/* 头部 */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20rpx 0 44rpx;
+}
+
+.logoRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logoIcon {
+  width: 76rpx;
+  height: 76rpx;
+  margin: 0 20rpx;
+}
+
+.header .title {
+  margin: 0;
+  font-size: 48rpx;
+}
+
+.header .subtitle {
+  margin-top: 12rpx;
+}
+
+/* 关卡列表 */
+.levelBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+}
+
+.card {
+  width: 46%;
+  margin-bottom: 36rpx;
+  padding: 18rpx 16rpx 14rpx;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 2rpx solid #DCEDC8;
+  border-radius: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 6rpx 20rpx rgba(104, 159, 56, 0.10);
+}
+
+.card.cleared {
+  border-color: #AEDF7A;
+  background: #FBFFF4;
+}
+
+.card-hover {
+  transform: scale(0.97);
+  background: #F1F8E9;
+}
+
+.cardTop {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 4rpx;
+  box-sizing: border-box;
+}
+
+.cardNum {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #33691E;
+}
+
+.cardBest {
+  font-size: 22rpx;
+  color: #8BAF6A;
+}
+
+.levelImg {
+  width: 240rpx;
+  height: 240rpx;
+  margin: 10rpx 0 6rpx;
+  border-radius: 14rpx;
+}
+
+.cardStars {
+  font-size: 28rpx;
+  color: #FFC94D;
+  letter-spacing: 4rpx;
+}
+
+/* 底部说明 */
+.footer {
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  color: #9CB87E;
+  letter-spacing: 2rpx;
+}

@@ -1,0 +1,342 @@
+/** pages/game/game.wxss **/
+
+/* 页面内容层：与弹窗分属同级，z-index 低于弹窗 */
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* 顶部 HUD 三卡片 */
+.hud {
+  width: 690rpx;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 16rpx;
+}
+
+.hudCard {
+  flex: 1;
+  margin: 0 6rpx;
+  background: #FFFFFF;
+  border: 2rpx solid #DCEDC8;
+  border-radius: 20rpx;
+  padding: 14rpx 0 16rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 14rpx rgba(104, 159, 56, 0.08);
+}
+
+.hudLabel {
+  font-size: 22rpx;
+  color: #9CB87E;
+  letter-spacing: 2rpx;
+}
+
+.hudValue {
+  margin-top: 4rpx;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #33691E;
+  line-height: 1.1;
+}
+
+.hudSub {
+  font-size: 24rpx;
+  font-weight: normal;
+  color: #A5C48A;
+}
+
+/* 历史最佳 */
+.recordBar {
+  margin-bottom: 16rpx;
+}
+
+.recordText {
+  font-size: 24rpx;
+  color: #8BAF6A;
+  letter-spacing: 1rpx;
+}
+
+/* 棋盘 */
+.boardWrap {
+  position: relative;
+  z-index: 1;
+  width: 690rpx;
+  height: 690rpx;
+  box-sizing: border-box;
+  padding: 6rpx;
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  overflow: hidden;
+  box-shadow: 0 10rpx 30rpx rgba(104, 159, 56, 0.18);
+}
+
+/* canvas 常驻，显式压到最底层 */
+.canvas {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: opacity 0.16s ease-out;
+}
+
+.canvas-loading {
+  opacity: 0;
+}
+
+.canvas-ready {
+  opacity: 1;
+}
+
+.boardPlaceholder {
+  position: absolute;
+  top: 6rpx;
+  left: 6rpx;
+  width: 678rpx;
+  height: 678rpx;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F7FBEF;
+}
+
+.boardSpinner {
+  width: 54rpx;
+  height: 54rpx;
+  box-sizing: border-box;
+  border: 6rpx solid #DCECCB;
+  border-top-color: #66BB6A;
+  border-radius: 50%;
+  animation: boardSpin 0.75s linear infinite;
+}
+
+@keyframes boardSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 通关快照：绝对定位覆盖在 canvas 之上，绕过 canvas 原生层级。
+   与 canvas 内容区（690 - 6*2 = 678rpx）完全对齐 */
+.canvas.cover {
+  position: absolute;
+  top: 6rpx;
+  left: 6rpx;
+  width: 678rpx;
+  height: 678rpx;
+  z-index: 2;
+}
+
+/* 方向键 */
+.pad {
+  width: 430rpx;
+  margin-top: 34rpx;
+}
+
+.padRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 12rpx 0;
+}
+
+.padCell {
+  width: 120rpx;
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dirBtn {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2rpx solid #C5E1A5;
+  box-shadow: 0 4rpx 14rpx rgba(104, 159, 56, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dirBtn-hover {
+  background: #F1F8E9;
+  transform: scale(0.93);
+}
+
+/* 箭头（CSS 三角形） */
+.arrow {
+  width: 0;
+  height: 0;
+  border: 15rpx solid transparent;
+}
+
+.arrow.up {
+  border-bottom-color: #558B2F;
+  margin-bottom: 8rpx;
+}
+
+.arrow.down {
+  border-top-color: #558B2F;
+  margin-top: 8rpx;
+}
+
+.arrow.left {
+  border-right-color: #558B2F;
+  margin-right: 8rpx;
+}
+
+.arrow.right {
+  border-left-color: #558B2F;
+  margin-left: 8rpx;
+}
+
+/* 辅助按钮 */
+.fnBar {
+  margin-top: 30rpx;
+  width: 430rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.fnBtn {
+  width: 200rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #558B2F;
+  background: #FFFFFF;
+  border: 2rpx solid #C5E1A5;
+  border-radius: 38rpx;
+  letter-spacing: 2rpx;
+}
+
+.fnBtn.primary {
+  color: #FFFFFF;
+  background: #66BB6A;
+  border-color: #66BB6A;
+}
+
+.fnBtn-hover {
+  opacity: 0.8;
+}
+
+/* 通关弹窗 —— 遮罩淡入 */
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(38, 50, 26, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: maskIn 0.22s ease-out;
+}
+
+@keyframes maskIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 弹窗本体 —— 弹入 */
+.modal {
+  width: 560rpx;
+  background: #FFFFFF;
+  border-radius: 36rpx;
+  padding: 44rpx 40rpx 36rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: modalIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.75) translateY(40rpx);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modalBird {
+  width: 96rpx;
+  height: 96rpx;
+  margin-bottom: 12rpx;
+}
+
+.modalTitle {
+  font-size: 42rpx;
+  font-weight: bold;
+  color: #33691E;
+  letter-spacing: 4rpx;
+}
+
+.modalStars {
+  margin-top: 18rpx;
+  font-size: 52rpx;
+  color: #FFC94D;
+  letter-spacing: 8rpx;
+}
+
+.modalSteps {
+  margin-top: 14rpx;
+  font-size: 28rpx;
+  color: #7A9A5B;
+}
+
+.modalRecord {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: #A5C48A;
+  padding: 6rpx 22rpx;
+  border-radius: 24rpx;
+  background: #F1F8E9;
+}
+
+.modalRecord.new {
+  color: #FFFFFF;
+  background: #FFB300;
+}
+
+.modalTip {
+  margin-top: 14rpx;
+  font-size: 23rpx;
+  color: #B0A05A;
+}
+
+.modalBtns {
+  margin-top: 32rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.modalBtn {
+  flex: 1;
+  margin: 0 6rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #558B2F;
+  background: #F1F8E9;
+  border-radius: 40rpx;
+}
+
+.modalBtn.primary {
+  color: #FFFFFF;
+  background: #66BB6A;
+}
+
+.modalBtn-hover {
+  opacity: 0.82;
+}
