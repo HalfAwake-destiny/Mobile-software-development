@@ -1,0 +1,82 @@
+<view class="masthead">
+  <view class="masthead__brand">
+    <view class="masthead__monogram">OUC</view>
+    <view>
+      <view class="masthead__name">海大校园新闻</view>
+      <view class="masthead__sub">CAMPUS NEWSROOM</view>
+    </view>
+  </view>
+  <view class="masthead__today">今日</view>
+</view>
+
+<swiper class="headline-swiper" indicator-dots="{{true}}" indicator-color="rgba(255,255,255,0.48)" indicator-active-color="#20c5d8" autoplay="{{true}}" circular="{{true}}" interval="5000" duration="500">
+  <swiper-item wx:for="{{swiperImg}}" wx:key="id">
+    <view class="headline" data-id="{{item.id}}" bindtap="goToDetail">
+      <image class="headline__image" src="{{item.src}}" mode="aspectFill"></image>
+      <view class="headline__shade"></view>
+      <view class="headline__content">
+        <view class="headline__meta"><text class="headline__tag">{{item.category}}</text><text>{{item.date}}</text></view>
+        <view class="headline__title">{{item.title}}</view>
+      </view>
+    </view>
+  </swiper-item>
+</swiper>
+
+<scroll-view class="category-bar" scroll-x enhanced show-scrollbar="{{false}}">
+  <view class="category-bar__inner">
+    <view class="category {{activeCategory === item ? 'category--active' : ''}}" wx:for="{{categories}}" wx:key="*this" data-category="{{item}}" bindtap="selectCategory">{{item}}</view>
+  </view>
+</scroll-view>
+
+<view class="feed-tools">
+  <view class="search-box">
+    <text class="search-box__icon">⌕</text>
+    <input
+      value="{{keyword}}"
+      placeholder="搜索标题、来源或正文"
+      confirm-type="search"
+      bindinput="onSearchInput"
+    ></input>
+    <button wx:if="{{keyword}}" class="search-box__clear" bindtap="clearSearch">×</button>
+  </view>
+  <view class="date-filter">
+    <picker
+      class="date-filter__picker"
+      mode="date"
+      value="{{selectedDate || maxDate}}"
+      start="{{minDate}}"
+      end="{{maxDate}}"
+      bindchange="selectDate"
+    >
+      <view class="date-filter__button {{selectedDate ? 'date-filter__button--active' : ''}}">
+        <text class="date-filter__icon">▦</text>
+        <text>{{selectedDate || '按日期查看'}}</text>
+      </view>
+    </picker>
+    <button wx:if="{{selectedDate}}" class="date-filter__reset" bindtap="clearDate">清除</button>
+  </view>
+</view>
+
+<view class="feed-heading">
+  <view><text class="feed-heading__title">最新动态</text><text class="feed-heading__en">LATEST</text></view>
+  <view class="feed-heading__live"><text></text>{{newsList.length}} 篇</view>
+</view>
+
+<view class="news-list">
+  <view class="news-item" wx:for="{{newsList}}" wx:key="id" data-id="{{item.id}}" bindtap="goToDetail" hover-class="news-item--active">
+    <image class="news-item__image" src="{{item.poster}}" mode="aspectFill"></image>
+    <view class="news-item__body">
+      <view class="news-item__topline"><text class="news-item__category">{{item.category}}</text><text class="news-item__date">{{item.add_date}}</text></view>
+      <text class="news-item__title">{{item.title}}</text>
+      <text class="news-item__source">{{item.source}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="feed-empty" wx:if="{{!newsList.length}}">
+  <view class="feed-empty__icon">⌕</view>
+  <view class="feed-empty__title">没有找到相关新闻</view>
+  <view class="feed-empty__copy">试试更换关键词、分类或日期</view>
+  <button wx:if="{{keyword}}" bindtap="clearSearch">清除关键词</button>
+  <button wx:if="{{selectedDate}}" bindtap="clearDate">清除日期</button>
+</view>

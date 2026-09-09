@@ -1,0 +1,77 @@
+page { padding-bottom: 132rpx; color: #172f40; background: #f3f5f7; box-sizing: border-box; }
+.profile-header { height: 230rpx; padding: 38rpx 32rpx 0; color: #fff; background: #102f46; box-sizing: border-box; }
+.profile-header__eyebrow { color: #65d1dc; font-size: 18rpx; font-weight: 700; }
+.profile-header__title { margin-top: 14rpx; font-size: 38rpx; font-weight: 750; }
+.profile-header__copy { margin-top: 10rpx; color: #b7cad6; font-size: 22rpx; }
+.account-card { margin: -52rpx 24rpx 0; padding: 28rpx; background: #fff; border-radius: 7rpx; box-shadow: 0 12rpx 32rpx rgba(16,47,70,.12); }
+.account-main { display: flex; align-items: center; }
+.account-avatar { flex: none; width: 112rpx; height: 112rpx; margin-right: 20rpx; border: 5rpx solid #e7eff3; border-radius: 50%; box-sizing: border-box; }
+.account-avatar--empty { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 36rpx; font-weight: 700; background: #176b94; }
+.account-copy { flex: 1; min-width: 0; }
+.account-copy text { display: block; overflow: hidden; font-size: 33rpx; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.account-copy view { margin-top: 9rpx; color: #84919a; font-size: 21rpx; }
+.account-badge { display: flex; margin-left: 12rpx; padding: 7rpx 11rpx; align-items: center; color: #7d8991; font-size: 18rpx; background: #f0f3f5; border-radius: 4rpx; }
+.account-badge text { width: 10rpx; height: 10rpx; margin-right: 7rpx; background: #a5afb5; border-radius: 50%; }
+.account-badge--online { color: #078b4b; background: #eaf8f1; }
+.account-badge--online text { background: #07c160; }
+.login-action { display: flex; width: 100%; height: 100rpx; margin: 28rpx 0 0; padding: 0 18rpx; align-items: center; text-align: left; background: #f6faf8; border-radius: 6rpx; }
+.login-action::after { border-color: #dbe8e1; }
+.login-action--pressed { background: #edf7f1; }
+.login-action__wechat { display: flex; width: 58rpx; height: 58rpx; margin-right: 16rpx; align-items: center; justify-content: center; color: #fff; font-size: 23rpx; font-weight: 700; background: #07c160; border-radius: 50%; }
+.login-action__copy { flex: 1; min-width: 0; line-height: 1.2; }
+.login-action__copy text { display: block; color: #173044; font-size: 26rpx; font-weight: 700; }
+.login-action__copy view { margin-top: 7rpx; overflow: hidden; color: #84919a; font-size: 19rpx; text-overflow: ellipsis; white-space: nowrap; }
+.login-action__arrow { color: #96a2aa; font-size: 40rpx; }
+.account-actions { margin-top: 24rpx; padding-top: 22rpx; border-top: 1rpx solid #e4e9ec; }
+.account-stats { display: flex; height: 76rpx; align-items: center; }
+.account-stats > view { flex: 1; color: #88949c; font-size: 19rpx; text-align: center; }
+.account-stats > view text { display: block; color: #173044; font-size: 32rpx; font-weight: 750; }
+.account-stats__divider { flex: none !important; width: 1rpx; height: 46rpx; background: #dfe5e8; }
+.account-actions__commands { display: flex; gap: 14rpx; margin-top: 18rpx; }
+.account-actions__commands button { height: 66rpx; margin: 0; padding: 0; flex: 1; font-size: 22rpx; line-height: 66rpx; border-radius: 5rpx; }
+.profile-edit-action { color: #176b94; background: #eef6f9; }
+.profile-edit-action::after { border-color: #c9dce5; }
+.logout-action { color: #c74250; background: #fff5f6; }
+.logout-action::after { border-color: #f0cbd0; }
+.logout-action--pressed { background: #ffecef !important; }
+.reading-section { margin-top: 22rpx; padding-top: 26rpx; background: #fff; border-top: 1rpx solid #e2e7ea; }
+.reading-section__topline { display: flex; padding: 0 28rpx 22rpx; align-items: center; justify-content: space-between; }
+.reading-section__topline > view text { font-size: 31rpx; font-weight: 700; }
+.reading-section__topline > view view { margin-top: 3rpx; color: #9aa4aa; font-size: 16rpx; }
+.reading-section__topline button { height: 56rpx; margin: 0; padding: 0 17rpx; color: #176b94; font-size: 21rpx; line-height: 56rpx; background: #f2f7f9; border-radius: 4rpx; }
+.reading-section__topline button::after { border: 0; }
+.reading-tabs { display: flex; margin: 0 28rpx 18rpx; padding: 6rpx; background: #eef2f4; border-radius: 6rpx; }
+.reading-tabs > view { flex: 1; height: 68rpx; color: #71808a; font-size: 25rpx; line-height: 68rpx; text-align: center; border-radius: 4rpx; }
+.reading-tabs text { margin-left: 5rpx; font-size: 18rpx; }
+.reading-tabs .active { color: #173044; font-weight: 700; background: #fff; box-shadow: 0 3rpx 9rpx rgba(23,48,68,.08); }
+.library-list { margin: 0 20rpx 30rpx; }
+.managed-item { display: flex; align-items: center; background: #fff; }
+.managed-item .news-item { flex: 1; min-width: 0; }
+.select-dot { display: flex; flex: none; width: 42rpx; height: 42rpx; margin-left: 12rpx; align-items: center; justify-content: center; color: #fff; font-size: 22rpx; border: 2rpx solid #aeb9c0; border-radius: 50%; box-sizing: border-box; }
+.select-dot.selected { background: #ed3b4f; border-color: #ed3b4f; }
+.library-empty { margin: 0 24rpx 36rpx; padding: 76rpx 28rpx; text-align: center; background: #f8fafb; border: 1rpx solid #e5eaed; border-radius: 7rpx; }
+.library-empty__icon { color: #176b94; font-size: 70rpx; line-height: 1; }
+.library-empty__title { margin-top: 20rpx; color: #263d4d; font-size: 27rpx; font-weight: 650; }
+.library-empty__copy { margin-top: 11rpx; color: #8c979f; font-size: 21rpx; }
+.manage-spacer { height: 118rpx; }
+.manage-bar { position: fixed; right: 0; bottom: calc(110rpx + env(safe-area-inset-bottom)); left: 0; z-index: 101; display: flex; height: 94rpx; padding: 0 28rpx; align-items: center; justify-content: space-between; color: #536773; font-size: 24rpx; background: #fff; border-top: 1rpx solid #dce3e8; box-shadow: 0 -6rpx 18rpx rgba(16,47,70,.08); box-sizing: border-box; }
+.manage-bar button { width: 190rpx; height: 66rpx; margin: 0; color: #fff; font-size: 24rpx; line-height: 66rpx; background: #ed3b4f; border-radius: 5rpx; }
+.manage-bar button::after { border: 0; }
+.editor-mask { position: fixed; inset: 0; z-index: 150; background: rgba(8,24,35,.48); }
+.profile-editor { position: fixed; right: 24rpx; bottom: calc(130rpx + env(safe-area-inset-bottom)); left: 24rpx; z-index: 160; max-height: calc(100vh - 190rpx - env(safe-area-inset-bottom)); padding: 30rpx; overflow-y: auto; background: #fff; border-radius: 8rpx; box-shadow: 0 20rpx 60rpx rgba(8,24,35,.24); box-sizing: border-box; }
+.profile-editor__heading { display: flex; align-items: flex-start; justify-content: space-between; }
+.profile-editor__heading text { color: #172f40; font-size: 32rpx; font-weight: 700; }
+.profile-editor__heading view view { margin-top: 7rpx; color: #8b969e; font-size: 20rpx; }
+.profile-editor__heading button { width: 58rpx; height: 58rpx; margin: -8rpx -8rpx 0 0; padding: 0; color: #84919a; font-size: 38rpx; font-weight: 300; line-height: 58rpx; background: transparent; }
+.profile-editor__heading button::after { border: 0; }
+.avatar-editor { padding: 30rpx 0 22rpx; text-align: center; }
+.avatar-picker { width: 146rpx; margin: 0 auto; padding: 0; background: transparent; }
+.avatar-picker::after { border: 0; }
+.avatar-picker image { display: block; width: 126rpx; height: 126rpx; margin: 0 auto; border: 5rpx solid #e4edf1; border-radius: 50%; box-sizing: border-box; }
+.avatar-picker view { margin-top: 12rpx; color: #176b94; font-size: 22rpx; line-height: 1.2; }
+.avatar-picker .avatar-picker__empty { display: flex; width: 126rpx; height: 126rpx; margin: 0 auto; align-items: center; justify-content: center; color: #176b94; font-size: 54rpx; font-weight: 300; line-height: 1; background: #eef6f9; border: 3rpx dashed #9fc2d2; border-radius: 50%; box-sizing: border-box; }
+.name-editor { display: flex; height: 90rpx; padding: 0 20rpx; align-items: center; background: #f4f7f8; border: 1rpx solid #e0e7ea; border-radius: 6rpx; box-sizing: border-box; }
+.name-editor > text { flex: none; margin-right: 22rpx; color: #405661; font-size: 24rpx; }
+.name-editor input { flex: 1; min-width: 0; color: #172f40; font-size: 27rpx; }
+.profile-save { height: 78rpx; margin: 26rpx 0 0; color: #fff; font-size: 27rpx; font-weight: 650; line-height: 78rpx; background: #176b94; border-radius: 6rpx; }
+.profile-save::after { border: 0; }
