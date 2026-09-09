@@ -1,0 +1,79 @@
+<!--pages/register/register.wxml-->
+<view class="page-bg register-page">
+  <!-- 顶部 Logo 区 -->
+  <view class="register-hero">
+    <view class="register-logo">+</view>
+    <view class="register-title">创建账号</view>
+    <view class="register-sub">用手机号注册，随时随地分享照片</view>
+  </view>
+
+  <!-- 表单卡片 -->
+  <view class="ha-card register-card">
+    <!-- 手机号 -->
+    <view class="field">
+      <view class="field-icon">📱</view>
+      <input
+        class="field-input"
+        type="number"
+        maxlength="11"
+        placeholder="手机号"
+        placeholder-class="field-placeholder"
+        value="{{phone}}"
+        bindinput="onPhoneInput"
+      ></input>
+    </view>
+    <view class="field-divider"></view>
+
+    <!-- 密码 -->
+    <view class="field">
+      <view class="field-icon">🔒</view>
+      <input
+        class="field-input"
+        type="password"
+        maxlength="20"
+        placeholder="密码"
+        placeholder-class="field-placeholder"
+        value="{{password}}"
+        bindinput="onPasswordInput"
+      ></input>
+    </view>
+    <view class="field-divider"></view>
+
+    <!-- 确认密码 -->
+    <view class="field">
+      <view class="field-icon">✓</view>
+      <input
+        class="field-input"
+        type="password"
+        maxlength="20"
+        placeholder="确认密码"
+        placeholder-class="field-placeholder"
+        value="{{confirmPassword}}"
+        bindinput="onConfirmInput"
+      ></input>
+    </view>
+    <view class="field-divider"></view>
+
+    <!-- 昵称 -->
+    <view class="field">
+      <view class="field-icon">👤</view>
+      <input
+        class="field-input"
+        maxlength="16"
+        placeholder="昵称（选填）"
+        placeholder-class="field-placeholder"
+        value="{{nickName}}"
+        bindinput="onNickNameInput"
+      ></input>
+    </view>
+  </view>
+
+  <!-- 注册按钮 -->
+  <button class="register-btn" bindtap="onRegister" loading="{{submitting}}">注册</button>
+
+  <!-- 已有账号 -->
+  <view class="login-link">
+    <text class="login-link__hint">已有账号？</text>
+    <text class="login-link__action" bindtap="goToLogin">去登录</text>
+  </view>
+</view>

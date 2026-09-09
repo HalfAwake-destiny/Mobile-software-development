@@ -1,0 +1,48 @@
+<!--pages/add/add.wxml-->
+<view class="page-bg add-page">
+  <!-- 顶部登录信息条 -->
+  <view class="ha-card user-bar">
+    <block wx:if="{{userInfo}}">
+      <image class="user-avatar" src="{{userInfo.avatarTempUrl || userInfo.avatarUrl}}" mode="aspectFill"></image>
+      <view class="user-info">
+        <text class="user-name">{{userInfo.nickName}}</text>
+        <text class="user-loc">已登录，可以上传照片啦</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="user-info">
+        <text class="user-name">未登录</text>
+        <text class="user-loc">设置头像昵称后即可上传照片</text>
+      </view>
+      <button class="ha-pill ha-pill-primary user-btn" bindtap="goToLogin">去登录</button>
+    </block>
+  </view>
+
+  <!-- 上传按钮 -->
+  <view class="upload-box ha-card" bindtap="upload" hover-class="upload-box-hover">
+    <text class="upload-plus">+</text>
+    <text class="upload-label">点击此处上传图片</text>
+  </view>
+
+  <!-- 已上传图片历史记录 -->
+  <view class="ha-card history">
+    <view class="history-title">已上传图片历史记录</view>
+    <view class="history-grid" wx:if="{{historyList.length}}">
+      <view
+        class="history-item"
+        wx:for="{{historyList}}"
+        wx:key="_id"
+        data-url="{{item.tempUrl}}"
+        bindtap="onTapHistory"
+        hover-class="history-item-hover"
+        hover-stay-time="80"
+      >
+        <image class="history-img" src="{{item.tempUrl}}" mode="aspectFill"></image>
+        <view class="history-meta">
+          <text class="history-date">{{item.addDate}}</text>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="empty-tip">还没有上传过图片</view>
+  </view>
+</view>

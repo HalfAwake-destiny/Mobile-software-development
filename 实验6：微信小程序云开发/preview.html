@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="SPdA939DcHsuPoxFLDHAoR">
+<head data-page-node-id="yyNejpYooFwHhy0shSpFqi">
+<meta charset="UTF-8" data-page-node-id="FEyo3zvgPiA6AVqDnB6JsI">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="hsBBRqPGmNYFSy8LQ383yn">
+<title>实验六 · 图享社区 UI 预览（云开发版）</title>
+<style>
+  :root {
+    --ha-primary: #45a7c8;
+    --ha-primary-deep: #237d9c;
+    --ha-accent: #eb8fa4;
+    --ha-page-bg: #f5f7fa;
+    --ha-surface: #ffffff;
+    --ha-text: #252a35;
+    --ha-muted: #697386;
+    --ha-border: #dfe5ec;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #eaeef3;
+    color: var(--ha-text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    padding: 32px 16px 64px;
+    min-height: 100vh;
+  }
+  h1 { text-align: center; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .sub { text-align: center; color: var(--ha-muted); font-size: 13px; margin-bottom: 32px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 340px);
+    gap: 28px;
+    justify-content: center;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+  .phone {
+    width: 340px;
+    height: 700px;
+    background: var(--ha-page-bg);
+    border-radius: 36px;
+    border: 1px solid #d0d6df;
+    box-shadow: 0 16px 36px rgba(25, 35, 50, 0.12);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .phone-title {
+    position: absolute; top: 6px; left: 0; right: 0;
+    text-align: center; font-size: 12px; color: var(--ha-muted);
+    font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .nav {
+    background: #fff; padding: 14px 16px;
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid var(--ha-border);
+    font-weight: 700; font-size: 15px; flex: 0 0 auto;
+  }
+  .nav.back { justify-content: flex-start; gap: 8px; }
+  .nav .arrow { color: var(--ha-muted); font-size: 18px; }
+  .body { flex: 1; overflow-y: auto; padding: 14px; position: relative; }
+
+  .card {
+    background: var(--ha-surface);
+    border: 1px solid var(--ha-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(25, 35, 50, 0.05);
+    overflow: hidden; margin-bottom: 14px;
+  }
+  .card-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px 8px; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, #45a7c8, #eb8fa4); flex: 0 0 auto;
+  }
+  .info { flex: 1; min-width: 0; }
+  .name { font-size: 14px; font-weight: 600; }
+  .loc { font-size: 11px; color: var(--ha-muted); margin-top: 2px; }
+  .img { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, #b5d8e6 0%, #f3d4dc 50%, #f9e3b8 100%); }
+  .img2 { background: linear-gradient(135deg, #f0c5a5 0%, #c5a8e0 60%, #6e8eb8 100%); }
+  .img3 { background: linear-gradient(135deg, #a8d8b9 0%, #f5e2a3 50%, #e8b59e 100%); }
+  .foot { padding: 8px 14px; border-top: 1px solid var(--ha-border); text-align: right; font-size: 11px; color: var(--ha-muted); }
+
+  .welcome { padding: 4px 4px 14px; }
+  .welcome .t1 { font-size: 22px; font-weight: 750; }
+  .welcome .t2 { font-size: 12px; color: var(--ha-muted); margin-top: 4px; }
+
+  .fab {
+    position: absolute; top: 70px; right: 14px;
+    background: var(--ha-primary); color: #fff;
+    padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 600;
+    box-shadow: 0 6px 16px rgba(69, 167, 200, 0.35);
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  .profile {
+    background: #fff; border: 1px solid var(--ha-border); border-radius: 12px;
+    padding: 16px 14px; display: flex; align-items: center; gap: 14px;
+    margin-bottom: 14px; box-shadow: 0 4px 16px rgba(25, 35, 50, 0.05);
+  }
+  .profile .big-avatar {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, #45a7c8, #eb8fa4); flex: 0 0 auto;
+  }
+  .profile .p-info { flex: 1; min-width: 0; }
+  .profile .p-name { font-size: 15px; font-weight: 700; }
+  .profile .p-loc { font-size: 11px; color: var(--ha-muted); margin-top: 3px; }
+  .pill { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+  .pill-p { background: var(--ha-primary); color: #fff; }
+  .pill-g { background: rgba(69, 167, 200, 0.12); color: var(--ha-primary-deep); }
+
+  .detail-photo {
+    background: linear-gradient(135deg, #b5d8e6 0%, #f3d4dc 50%, #f9e3b8 100%);
+    aspect-ratio: 4/3; border-radius: 12px; margin-bottom: 12px;
+    box-shadow: 0 4px 16px rgba(25, 35, 50, 0.05);
+  }
+  .uploader {
+    background: #fff; border: 1px solid var(--ha-border); border-radius: 12px;
+    padding: 12px 14px; display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px; box-shadow: 0 4px 16px rgba(25, 35, 50, 0.05);
+  }
+  .actions { display: flex; flex-direction: column; gap: 10px; }
+  .btn {
+    width: 100%; height: 42px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 600;
+  }
+  .btn-p { background: var(--ha-primary); color: #fff; }
+  .btn-g { background: rgba(69, 167, 200, 0.12); color: var(--ha-primary-deep); }
+
+  .user-bar {
+    background: #fff; border: 1px solid var(--ha-border); border-radius: 12px;
+    padding: 14px; display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px; box-shadow: 0 4px 16px rgba(25, 35, 50, 0.05);
+  }
+  .upload-box {
+    background: linear-gradient(135deg, rgba(69, 167, 200, 0.1), rgba(235, 143, 164, 0.08));
+    border: 2px dashed rgba(69, 167, 200, 0.4); border-radius: 12px;
+    padding: 30px 20px; display: flex; flex-direction: column;
+    align-items: center; gap: 6px; margin-bottom: 14px;
+  }
+  .upload-box .plus { font-size: 32px; font-weight: 700; color: var(--ha-primary); }
+  .upload-box .label { font-size: 13px; color: var(--ha-primary-deep); font-weight: 600; }
+  .history { background: #fff; border: 1px solid var(--ha-border); border-radius: 12px; padding-bottom: 12px; box-shadow: 0 4px 16px rgba(25, 35, 50, 0.05); }
+  .history h3 { padding: 12px 14px 8px; font-size: 14px; border-bottom: 1px solid var(--ha-border); }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 10px 10px 0; }
+  .grid3 .item { aspect-ratio: 1; border-radius: 6px; background: linear-gradient(135deg, #b5d8e6, #f3d4dc); position: relative; }
+  .grid3 .item:nth-child(2) { background: linear-gradient(135deg, #a8d8b9, #f5e2a3); }
+  .grid3 .item:nth-child(3) { background: linear-gradient(135deg, #f0c5a5, #c5a8e0); }
+  .grid3 .item:nth-child(4) { background: linear-gradient(135deg, #c5a8e0, #6e8eb8); }
+  .grid3 .item:nth-child(5) { background: linear-gradient(135deg, #f5e2a3, #e8b59e); }
+  .grid3 .item:nth-child(6) { background: linear-gradient(135deg, #6e8eb8, #b5d8e6); }
+  .item-date {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 2px 4px;
+    font-size: 9px; color: #fff;
+    background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+    border-radius: 0 0 6px 6px;
+  }
+</style>
+</head>
+<body data-page-node-id="zcGnFyYiTvje4NGZASjR5Q">
+  <h1 data-page-node-id="tlJL20NPT32lhhvKcH1KdN">实验六 · 图享社区 UI 预览</h1>
+  <p class="sub" data-page-node-id="1yfzE93Wp4DWjxc7iZ3RA3">云开发版 · 仿博客 half-awake 主题（青色 #45a7c8 · 圆角卡片 · 软阴影）</p>
+
+  <div class="grid" data-page-node-id="U9rS7FdSs3WAGH9yNsF5HP">
+    <div class="phone" data-page-node-id="g0DoN7JLqer3JYHK5x18RO">
+      <div class="phone-title" data-page-node-id="wqs6FBZsn6uzbjxaSX0grz">index · 首页</div>
+      <div class="nav" data-page-node-id="0LgmYnPBjuA9d1SWhkifGr">图享社区</div>
+      <div class="body" data-page-node-id="PDv1HCDEZwghlsIs1MHzV8">
+        <div class="welcome" data-page-node-id="tAkkWXHvCFh2cpSw4U8wZz"><div class="t1" data-page-node-id="KlG8mgwF81OE71jtOYz1Px">图享社区</div><div class="t2" data-page-node-id="tyW96b27Ho2JGaL5H2oQSH">在这里分享你的每一帧</div></div>
+        <div class="card" data-page-node-id="TkuyAxckFp0z8sicyl5EeH">
+          <div class="card-head" data-page-node-id="HcEHJaXtzroCUEAIDbOOi3"><div class="avatar" data-page-node-id="KdBVW35rgBRhnxrOULkHAW"></div><div class="info" data-page-node-id="bmWZwUomcHe1SvPoYwvRVn"><div class="name" data-page-node-id="6FEZlq8YhEdUVp34lXuTDH">周小贝</div><div class="loc" data-page-node-id="DAECGdC7km3GIkbxBVfks8">Anhui, China</div></div></div>
+          <div class="img" data-page-node-id="wjxKekRZDBf2RcT2tHf35c"></div><div class="foot" data-page-node-id="UD3JVJdIPPILrNsD35naiQ">2026-09-08</div>
+        </div>
+        <div class="card" data-page-node-id="z3GICrAEmdcU9eQLEabqBP">
+          <div class="card-head" data-page-node-id="rZDKhEiVuy3j0QcKxpXqUo"><div class="avatar" data-page-node-id="2xkUs9kznjWBXpVs1P96t3"></div><div class="info" data-page-node-id="ucZoPY3nC5zoiJy3DdriGu"><div class="name" data-page-node-id="S65a5wSLl3FQDHzDizhA4t">林之夏</div><div class="loc" data-page-node-id="eOl7eOuSUfxHsTmeCijnfO">Shanghai, China</div></div></div>
+          <div class="img img2" data-page-node-id="tLqsPAVhFaYF4njHTbq5z4"></div><div class="foot" data-page-node-id="DOGaPDj1BEsZGiw8voXRRR">2026-09-07</div>
+        </div>
+        <div class="card" data-page-node-id="ejsHr9P1EUC9wiZDEwim20">
+          <div class="card-head" data-page-node-id="ug8IJWVyPENpQDvshNJRQv"><div class="avatar" data-page-node-id="oXGIBoMbTpdB2j8BAf2J11"></div><div class="info" data-page-node-id="PNdoW1xUhhf8KMMZ52QqpY"><div class="name" data-page-node-id="LYYRaZFZxcr4nLE8zDdGMn">周小贝</div><div class="loc" data-page-node-id="OeDA4tCKkxOAgQzS2xO3Ho">Anhui, China</div></div></div>
+          <div class="img img3" data-page-node-id="U6E64bDPn7s9eBuW1wjTMc"></div><div class="foot" data-page-node-id="bD9FrT7le8ZCqywn09MARX">2026-09-05</div>
+        </div>
+        <div class="fab" data-page-node-id="nHp8Y3oeEk3PE7bspOXxcU"><span data-page-node-id="Ru66iFayspPNjR1KMR8o08">+</span><span data-page-node-id="zCXmbvLK3YWH29X4BofIhb">上传图片</span></div>
+      </div>
+    </div>
+
+    <div class="phone" data-page-node-id="0BbEIT2lrzX77mWQ28cnkJ">
+      <div class="phone-title" data-page-node-id="JvZ8GjbEV3ZGbgvS3nC1RC">homepage · 个人中心</div>
+      <div class="body" style="padding:0" data-page-node-id="BBI1NmhUx3GkEj9avuTXAS">
+        <div style="padding:24px 20px 44px;background:linear-gradient(135deg,#237d9c,#45a7c8);color:#fff">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;opacity:.75">MY GALLERY</div>
+          <div style="margin-top:6px;font-size:22px;font-weight:750">个人中心</div>
+          <div style="margin-top:4px;font-size:12px;opacity:.8">管理你的资料和照片</div>
+        </div>
+        <div style="margin:-28px 14px 0;padding:14px;background:#fff;border-radius:8px;box-shadow:0 6px 16px rgba(35,125,156,.14);position:relative">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="avatar" style="width:56px;height:56px;border:3px solid #e8f4f8"></div>
+            <div class="info"><div class="name" style="font-size:16px">周小贝</div><div class="loc">图享社区成员 · 资料已同步云端</div></div>
+            <span style="font-size:10px;color:#0c8a52;background:#e8f7f0;padding:3px 7px;border-radius:4px">● 在线</span>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--ha-border);display:flex;text-align:center">
+            <div style="flex:1"><div style="font-size:16px;font-weight:750">3</div><div class="loc">我的照片</div></div>
+            <div style="width:1px;background:var(--ha-border)"></div>
+            <div style="flex:1"><div style="font-size:16px;font-weight:750">MnjnC6rsvs</div><div class="loc">身份标识</div></div>
+          </div>
+          <div style="display:flex;gap:7px;margin-top:10px">
+            <div style="flex:1;height:32px;line-height:32px;text-align:center;font-size:11px;font-weight:600;color:var(--ha-primary-deep);background:#edf6fa;border-radius:4px">编辑资料</div>
+            <div style="flex:1;height:32px;line-height:32px;text-align:center;font-size:11px;font-weight:600;color:#c74250;background:#fff5f6;border-radius:4px">退出登录</div>
+          </div>
+        </div>
+        <div style="margin:12px 14px 0;padding:12px 14px;background:#fff;border:1px solid var(--ha-border);border-radius:8px">
+          <div style="display:flex;justify-content:space-between;font-size:11px"><span class="loc">当前 openid</span><span style="color:var(--ha-text);font-size:10px;word-break:break-all">o71Ns3b9K1lh8_wS8MnjnC6rsvs</span></div>
+          <div class="loc" style="margin-top:6px;font-size:10px;line-height:1.5">换一个微信号登录会拿到不同的 openid，云开发按它自动隔离照片和资料。</div>
+        </div>
+        <div style="padding:12px 14px 0">
+          <div style="display:flex;align-items:center;gap:6px;padding:0 2px 10px">
+            <span style="font-size:15px;font-weight:700">我的照片</span>
+            <span style="font-size:11px;color:var(--ha-primary-deep);background:rgba(69,167,200,.1);padding:1px 8px;border-radius:99px">3</span>
+          </div>
+          <div class="card" data-page-node-id="B7ElQEPLkfvvE3kpU6yDUk"><div class="img" data-page-node-id="sOybWZTZSJDShWogPO3GAC"></div><div class="foot" data-page-node-id="ujFLab3pHxKKVVqwZ1mrzy">2026-09-08</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- login · 登录页 -->
+    <div class="phone">
+      <div class="phone-title">login · 登录</div>
+      <div class="body" style="padding:0;background:linear-gradient(180deg,#e8f4f8 0%,#f5f7fa 30%)">
+        <div style="padding:48px 20px 24px;text-align:center">
+          <div style="display:inline-flex;width:60px;height:60px;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;background:linear-gradient(135deg,#237d9c,#45a7c8);border-radius:16px;box-shadow:0 6px 16px rgba(35,125,156,.3)">图</div>
+          <div style="margin-top:14px;font-size:22px;font-weight:750">登录图享社区</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--ha-muted)">分享照片，记录生活</div>
+        </div>
+        <div style="margin:0 16px;padding:0;background:#fff;border-radius:8px;border:1px solid var(--ha-border);overflow:hidden">
+          <div style="display:flex;align-items:center;gap:10px;padding:16px 14px">
+            <span style="font-size:16px">📱</span>
+            <input style="flex:1;border:0;outline:0;font-size:14px" placeholder="手机号">
+          </div>
+          <div style="height:1px;margin:0 14px;background:var(--ha-border)"></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:16px 14px">
+            <span style="font-size:16px">🔒</span>
+            <input style="flex:1;border:0;outline:0;font-size:14px" type="password" placeholder="密码">
+          </div>
+        </div>
+        <div style="margin:24px 16px 0;height:48px;line-height:48px;text-align:center;font-size:15px;font-weight:650;color:#fff;background:var(--ha-primary);border-radius:8px;box-shadow:0 5px 12px rgba(69,167,200,.35)">登录</div>
+        <div style="margin-top:14px;text-align:center;font-size:12px">
+          <span style="color:var(--ha-muted)">还没有账号？</span>
+          <span style="color:var(--ha-primary-deep);font-weight:600;margin-left:4px">立即注册</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin:32px 16px 16px">
+          <div style="flex:1;height:1px;background:var(--ha-border)"></div>
+          <div style="font-size:11px;color:var(--ha-muted)">其他登录方式</div>
+          <div style="flex:1;height:1px;background:var(--ha-border)"></div>
+        </div>
+        <div style="display:flex;margin:0 16px;height:48px;align-items:center;justify-content:center;gap:6px;background:#fff;border:1px solid var(--ha-border);border-radius:8px">
+          <div style="display:flex;width:22px;height:22px;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;background:#07c160;border-radius:50%">微</div>
+          <span style="font-size:14px;font-weight:600">微信授权登录</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- register · 注册页 -->
+    <div class="phone">
+      <div class="phone-title">register · 创建账号</div>
+      <div class="body" style="padding:0;background:linear-gradient(180deg,#e8f4f8 0%,#f5f7fa 30%)">
+        <div style="padding:48px 20px 24px;text-align:center">
+          <div style="display:inline-flex;width:60px;height:60px;align-items:center;justify-content:center;font-size:28px;font-weight:300;color:#fff;background:linear-gradient(135deg,#237d9c,#45a7c8);border-radius:16px;box-shadow:0 6px 16px rgba(35,125,156,.3)">+</div>
+          <div style="margin-top:14px;font-size:22px;font-weight:750">创建账号</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--ha-muted)">用手机号注册，随时随地分享照片</div>
+        </div>
+        <div style="margin:0 16px;padding:0;background:#fff;border-radius:8px;border:1px solid var(--ha-border);overflow:hidden">
+          <div style="display:flex;align-items:center;gap:10px;padding:16px 14px"><span style="font-size:16px">📱</span><input style="flex:1;border:0;outline:0;font-size:14px" placeholder="手机号"></div>
+          <div style="height:1px;margin:0 14px;background:var(--ha-border)"></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:16px 14px"><span style="font-size:16px">🔒</span><input style="flex:1;border:0;outline:0;font-size:14px" type="password" placeholder="密码"></div>
+          <div style="height:1px;margin:0 14px;background:var(--ha-border)"></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:16px 14px"><span style="font-size:16px">✓</span><input style="flex:1;border:0;outline:0;font-size:14px" type="password" placeholder="确认密码"></div>
+          <div style="height:1px;margin:0 14px;background:var(--ha-border)"></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:16px 14px"><span style="font-size:16px">👤</span><input style="flex:1;border:0;outline:0;font-size:14px" placeholder="昵称（选填）"></div>
+        </div>
+        <div style="margin:24px 16px 0;height:48px;line-height:48px;text-align:center;font-size:15px;font-weight:650;color:#fff;background:var(--ha-primary);border-radius:8px;box-shadow:0 5px 12px rgba(69,167,200,.35)">注册</div>
+        <div style="margin-top:14px;text-align:center;font-size:12px">
+          <span style="color:var(--ha-muted)">已有账号？</span>
+          <span style="color:var(--ha-primary-deep);font-weight:600;margin-left:4px">去登录</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone" data-page-node-id="bKL7gCQ4zItUpyioBSo9r9">
+      <div class="phone-title" data-page-node-id="We0ozkNLeGV7hyzw1ftGX3">detail · 图片详情</div>
+      <div class="nav back" data-page-node-id="KKsFLVEeN4lOwCGew7hJXM"><span class="arrow" data-page-node-id="CbU0X1fAJtLdmAGopbb3kX">‹</span>周小贝的照片</div>
+      <div class="body" data-page-node-id="RrnV6ot3szD16kHZIFZzFr">
+        <div class="detail-photo" data-page-node-id="c8YM6XoHoYC0FqG40lqdkM"></div>
+        <div class="uploader" data-page-node-id="05in6TDsDWpNTBvqCIkBdD">
+          <div class="avatar" data-page-node-id="BO0J5bHbkVku8HoEGOPBTB"></div>
+          <div class="info" data-page-node-id="SpeYkjyPREfUQCi7poaMql"><div class="name" data-page-node-id="fG01YOOoODr2W21ukdEaCJ">周小贝</div><div class="loc" data-page-node-id="hUG73nDHCNl7p70z2ENVGX">Anhui, China</div></div>
+          <span class="loc" data-page-node-id="GLY9HA9ESYox51QnVm5EfU">2026-09-08</span>
+        </div>
+        <div class="actions" data-page-node-id="647Lif6BDiGV3FuA3Ed4SG">
+          <div class="btn btn-p" data-page-node-id="EkHFnnACLmdMXjsP8hg5r5">下载到本地</div>
+          <div class="btn btn-g" data-page-node-id="9tRmHAm0AIBTBkhRAsBLJh">分享给好友</div>
+          <div class="btn btn-g" data-page-node-id="1LvAsLYY1N0GAFfCkHI0r4">全屏预览</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone" data-page-node-id="hz1LVPODi7M2uEjMrWxMAb">
+      <div class="phone-title" data-page-node-id="PKbw0Az3uTMiZFfuAAgHbF">add · 上传图片</div>
+      <div class="nav back" data-page-node-id="GhgXeJJjEhUOOhYTD4I5SM"><span class="arrow" data-page-node-id="iWwdzaENABEFeCA2zepaq0">‹</span>上传图片</div>
+      <div class="body" data-page-node-id="sRNHQG4FIatAF0SOQlZsna">
+        <div class="user-bar" data-page-node-id="sxiMHkFzqoCpSyEmYiNeSW">
+          <div class="avatar" data-page-node-id="lvadHjJ32BS5hdYV7QY8Hb"></div>
+          <div class="info" data-page-node-id="nUqq9NWCEPDwjR2qp0TBXm"><div class="name" data-page-node-id="kxCNCLpd6g6urBLffGYAGV">周小贝</div><div class="loc" data-page-node-id="wLPAsOi9fE2f4RuBBwVYNL">已登录，可以上传照片啦</div></div>
+        </div>
+        <div class="upload-box" data-page-node-id="v1qfblO0GFIdyC1Z2tpnQ2"><div class="plus" data-page-node-id="02AspcbxacHFzDLR2IwGw9">+</div><div class="label" data-page-node-id="tttDjxezh781OWjUYNWNSx">点击此处上传图片</div></div>
+        <div class="history" data-page-node-id="NV8OX8orDex6W1wZv5FmDa">
+          <h3 data-page-node-id="JayvUXQHLgamH2ktY2iJr7">已上传图片历史记录</h3>
+          <div class="grid3" data-page-node-id="fML8UcGrKPWjvD6GxiI67D">
+            <div class="item" data-page-node-id="CbMr6qzL9XLseOKw5sTCb8"><span class="item-date" data-page-node-id="BfpSZLHvXzcT6fco61wmML">09-08</span></div>
+            <div class="item" data-page-node-id="lRForHm0B5i4U5gFwjRq9m"><span class="item-date" data-page-node-id="DB6O05weYMmzYdBb3q3lPB">09-05</span></div>
+            <div class="item" data-page-node-id="oht52BUu1Rg9O8INkv8DcJ"><span class="item-date" data-page-node-id="Xjw4CugJijp0ZQjifGdqXY">09-03</span></div>
+            <div class="item" data-page-node-id="A9wzTZ04xDwaMCeqNipQN6"><span class="item-date" data-page-node-id="16RlB69grFeMRNA2s2sp2X">09-01</span></div>
+            <div class="item" data-page-node-id="3kwGDCFLTlDivxAwIywMAw"><span class="item-date" data-page-node-id="4em9KkIXyyC2fJ2n7SyL01">08-30</span></div>
+            <div class="item" data-page-node-id="StHvdBCDodkCjLOlxGdC88"><span class="item-date" data-page-node-id="VrC8yyUcyQWhDPE3RGqpJo">08-28</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

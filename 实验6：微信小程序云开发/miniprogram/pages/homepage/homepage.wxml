@@ -1,0 +1,164 @@
+<!--pages/homepage/homepage.wxml-->
+<!-- 两种模式：不带参数 = 我的个人中心；?openid=xxx = 浏览 TA 的主页 -->
+<view class="page-bg home-page">
+
+  <!-- ===== 我的个人中心 ===== -->
+  <block wx:if="{{isMe}}">
+
+    <!-- 顶部头部（青色渐变） -->
+    <view class="profile-header">
+      <view class="profile-header__eyebrow">MY GALLERY</view>
+      <view class="profile-header__title">个人中心</view>
+      <view class="profile-header__copy">管理你的资料和照片</view>
+    </view>
+
+    <!-- 账号卡片（浮起，未登录可点击去登录） -->
+    <view
+      class="account-card {{!isLogin ? 'account-card--tappable' : ''}}"
+      hover-class="{{!isLogin ? 'account-card--pressed' : ''}}"
+      bindtap="{{!isLogin ? 'goToLogin' : ''}}"
+    >
+      <view class="account-main">
+        <image wx:if="{{isLogin && avatarUrl}}" class="account-avatar" src="{{avatarUrl}}" mode="aspectFill"></image>
+        <view wx:else class="account-avatar account-avatar--empty">图</view>
+
+        <view class="account-copy">
+          <text>{{isLogin ? nickName : '尚未登录'}}</text>
+          <view>{{isLogin ? '图享社区成员 · 资料已同步云端' : '点击登录后上传照片并显示昵称头像'}}</view>
+        </view>
+
+        <view wx:if="{{isLogin}}" class="account-badge account-badge--online"><text></text>在线</view>
+        <view wx:else class="account-badge"><text></text>访客</view>
+        <view wx:if="{{!isLogin}}" class="account-arrow">›</view>
+      </view>
+
+      <!-- 已登录：统计 + 操作 -->
+      <view class="account-actions" wx:if="{{isLogin}}">
+        <view class="account-stats">
+          <view><text>{{photoList.length}}</text><view>我的照片</view></view>
+          <view class="account-stats__divider"></view>
+          <view><text>{{loginMethodText}}</text><view>登录方式</view></view>
+        </view>
+
+        <view class="account-actions__commands">
+          <button class="profile-edit-action" bindtap="goToFavorites">我的收藏</button>
+          <button class="profile-edit-action" bindtap="openProfileEditor">编辑资料</button>
+          <button class="logout-action" bindtap="logout" hover-class="logout-action--pressed">退出登录</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 我的照片（缩略图网格，点击进详情） -->
+    <view class="my-photos" wx:if="{{isLogin}}">
+      <view class="section-title">
+        <text>我的照片</text>
+        <text class="section-count">{{photoList.length}}</text>
+      </view>
+
+      <view class="photo-grid" wx:if="{{photoList.length}}">
+        <view
+          class="photo-grid-item"
+          wx:for="{{photoList}}"
+          wx:key="_id"
+          data-id="{{item._id}}"
+          bindtap="onTapImage"
+          hover-class="photo-grid-item--hover"
+          hover-stay-time="80"
+        >
+          <image class="photo-grid-img" src="{{item.tempUrl}}" mode="aspectFill" lazy-load></image>
+        </view>
+      </view>
+      <view wx:elif="{{!loading}}" class="empty-tip">还没有上传过照片，去首页发一张吧</view>
+      <view wx:if="{{loading}}" class="loading-tip">加载中…</view>
+    </view>
+
+    <!-- 未登录：提示卡 -->
+    <view wx:elif="{{!isLogin}}" class="guest-tip ha-card">
+      <view class="guest-tip__icon">◑</view>
+      <view class="guest-tip__title">登录后查看个人资料</view>
+      <view class="guest-tip__copy">你的头像、昵称和上传的照片都会保存在云端</view>
+    </view>
+  </block>
+
+  <!-- ===== 浏览别人的主页 ===== -->
+  <block wx:else>
+    <view class="profile-header">
+      <view class="profile-header__eyebrow">GALLERY</view>
+      <view class="profile-header__title">{{nickName || '匿名用户'}}</view>
+      <view class="profile-header__copy">{{locationText || '看看 TA 分享的照片'}}</view>
+    </view>
+
+    <view class="account-card">
+      <view class="account-main">
+        <image wx:if="{{avatarUrl}}" class="account-avatar" src="{{avatarUrl}}" mode="aspectFill"></image>
+        <view wx:else class="account-avatar account-avatar--empty">图</view>
+        <view class="account-copy">
+          <text>{{nickName || '匿名用户'}}</text>
+          <view>{{locationText || '未填写所在地'}}</view>
+        </view>
+        <view class="account-badge account-badge--online"><text></text>TA</view>
+      </view>
+      <view class="account-actions">
+        <view class="account-stats">
+          <view><text>{{photoList.length}}</text><view>TA 的照片</view></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="my-photos">
+      <view class="section-title">
+        <text>TA 的照片</text>
+        <text class="section-count">{{photoList.length}}</text>
+      </view>
+
+      <view class="photo-grid" wx:if="{{photoList.length}}">
+        <view
+          class="photo-grid-item"
+          wx:for="{{photoList}}"
+          wx:key="_id"
+          data-id="{{item._id}}"
+          bindtap="onTapImage"
+          hover-class="photo-grid-item--hover"
+          hover-stay-time="80"
+        >
+          <image class="photo-grid-img" src="{{item.tempUrl}}" mode="aspectFill" lazy-load></image>
+        </view>
+      </view>
+      <view wx:elif="{{!loading}}" class="empty-tip">TA 还没发过照片</view>
+      <view wx:if="{{loading}}" class="loading-tip">加载中…</view>
+    </view>
+  </block>
+</view>
+
+<!-- ===== 资料编辑弹窗（chooseAvatar + nickname） ===== -->
+<view class="editor-mask" wx:if="{{showProfileEditor}}" bindtap="closeProfileEditor"></view>
+<view class="profile-editor" wx:if="{{showProfileEditor}}">
+  <view class="profile-editor__heading">
+    <view>
+      <text>编辑个人资料</text>
+      <view>修改后同步到云端</view>
+    </view>
+    <button bindtap="closeProfileEditor">×</button>
+  </view>
+
+  <view class="avatar-editor">
+    <button class="avatar-picker" open-type="chooseAvatar" bindchooseavatar="chooseAvatar">
+      <image wx:if="{{draftAvatarUrl}}" src="{{draftAvatarUrl}}" mode="aspectFill"></image>
+      <view wx:else class="avatar-picker__empty">+</view>
+      <view class="avatar-picker__hint">{{draftAvatarUrl ? '更换头像' : '选择微信头像'}}</view>
+    </button>
+  </view>
+
+  <view class="name-editor">
+    <text>昵称</text>
+    <input
+      type="nickname"
+      maxlength="16"
+      value="{{draftNickName}}"
+      bindinput="updateDraftName"
+      placeholder="请输入昵称"
+    ></input>
+  </view>
+
+  <button class="profile-save" bindtap="saveProfile" loading="{{saving}}">保存修改</button>
+</view>

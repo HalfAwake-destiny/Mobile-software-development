@@ -1,0 +1,42 @@
+<!--pages/favorites/favorites.wxml-->
+<view class="page-bg fav-page">
+  <view class="fav-header">
+    <view class="fav-title">我的收藏</view>
+    <view class="fav-sub">共 {{favList.length}} 张 · 收藏的照片在这里集中管理</view>
+  </view>
+
+  <block wx:if="{{favList.length}}">
+    <view class="ha-card fav-card" wx:for="{{favList}}" wx:key="_id">
+      <image
+        class="fav-img"
+        src="{{item.tempUrl}}"
+        mode="widthFix"
+        data-id="{{item._id}}"
+        data-url="{{item.tempUrl}}"
+        bindtap="onTapImage"
+        bindlongpress="onTapPreview"
+      ></image>
+      <view class="fav-foot">
+        <view class="fav-meta">
+          <text class="fav-name">{{item.nickName || '匿名用户'}}</text>
+          <text class="fav-date">{{item.addDate}}</text>
+        </view>
+        <button
+          class="ha-pill fav-remove"
+          size="mini"
+          data-id="{{item._id}}"
+          bindtap="onCancelFav"
+          hover-class="fav-remove--hover"
+        >移出收藏</button>
+      </view>
+    </view>
+  </block>
+
+  <view wx:elif="{{!loading}}" class="empty-tip">
+    还没有收藏任何照片
+    <view class="empty-sub">去社区里看到喜欢的照片，点「☆ 收藏」把它存下来吧</view>
+    <button class="ha-pill ha-pill-primary empty-btn" bindtap="goBrowse">去逛逛</button>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading-tip">加载中…</view>
+</view>

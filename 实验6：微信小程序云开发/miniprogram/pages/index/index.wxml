@@ -1,0 +1,35 @@
+<!--pages/index/index.wxml-->
+<view class="page-bg index-page">
+  <!-- 顶部欢迎条 -->
+  <view class="welcome-bar">
+    <view class="welcome-title">图享社区</view>
+    <view class="welcome-sub">在这里分享你的每一帧</view>
+  </view>
+
+  <!-- 卡片列表 -->
+  <block wx:if="{{photoList.length}}">
+    <photo-card
+      wx:for="{{photoList}}"
+      wx:key="_id"
+      photo="{{item}}"
+      bind:tapimage="onTapImage"
+      bind:tapavatar="onTapAvatar"
+    ></photo-card>
+  </block>
+  <view wx:elif="{{!loading}}" class="empty-tip">还没有人发照片，去上传第一张吧 👀</view>
+  <view wx:if="{{loading}}" class="loading-tip">加载中…</view>
+
+  <!-- 浮动按钮组：我的在左，上传在右 -->
+  <view class="fab-group">
+    <view class="fab fab-mine" hover-class="fab-hover" bindtap="goToMyPage">
+      <image wx:if="{{myAvatar}}" class="fab-avatar" src="{{myAvatar}}" mode="aspectFill"></image>
+      <text wx:else class="fab-mine-icon">我</text>
+      <text class="fab-label">{{myNickName || '我的'}}</text>
+    </view>
+
+    <view class="fab fab-upload" hover-class="fab-hover" bindtap="goToAdd">
+      <text class="fab-plus">+</text>
+      <text class="fab-label">上传</text>
+    </view>
+  </view>
+</view>

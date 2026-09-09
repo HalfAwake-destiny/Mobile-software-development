@@ -1,0 +1,489 @@
+/* pages/homepage/homepage.wxss */
+/* 结构参考实验三「我的」页：深色头部 + 白色浮起卡片 + 资料编辑弹窗，配色换成本项目青色主题 */
+
+.home-page {
+  padding: 0 0 96rpx;
+  /* 头部要通顶，覆盖 app.wxss 的 page-bg 内边距 */
+  margin: -24rpx -28rpx 0;
+}
+
+/* ===== 顶部深色头部（青色渐变） ===== */
+.profile-header {
+  padding: 48rpx 40rpx 88rpx;
+  color: #fff;
+  background: linear-gradient(135deg, #237d9c 0%, #45a7c8 100%);
+}
+.profile-header__eyebrow {
+  font-size: 20rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+  color: rgba(255, 255, 255, 0.75);
+}
+.profile-header__title {
+  margin-top: 14rpx;
+  font-size: 44rpx;
+  font-weight: 750;
+}
+.profile-header__copy {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ===== 账号卡片（负 margin 浮起在头部上） ===== */
+.account-card {
+  margin: -56rpx 28rpx 0;
+  padding: 28rpx;
+  background: var(--ha-surface);
+  border-radius: var(--ha-radius);
+  box-shadow: 0 12rpx 32rpx rgba(35, 125, 156, 0.14);
+  position: relative;
+  z-index: 1;
+}
+.account-main {
+  display: flex;
+  align-items: center;
+}
+.account-avatar {
+  flex: none;
+  width: 112rpx;
+  height: 112rpx;
+  margin-right: 20rpx;
+  border: 5rpx solid #e8f4f8;
+  border-radius: 50%;
+  background: #e8f4f8;
+  box-sizing: border-box;
+}
+.account-avatar--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: 700;
+  background: var(--ha-primary);
+}
+.account-copy {
+  flex: 1;
+  min-width: 0;
+}
+.account-copy text {
+  display: block;
+  overflow: hidden;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--ha-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.account-copy view {
+  margin-top: 9rpx;
+  color: var(--ha-muted);
+  font-size: 21rpx;
+}
+.account-badge {
+  display: flex;
+  margin-left: 12rpx;
+  padding: 7rpx 14rpx;
+  align-items: center;
+  color: var(--ha-muted);
+  font-size: 18rpx;
+  background: #f0f3f6;
+  border-radius: 6rpx;
+  flex: none;
+}
+.account-badge text {
+  width: 10rpx;
+  height: 10rpx;
+  margin-right: 7rpx;
+  background: #a5afb5;
+  border-radius: 50%;
+}
+.account-badge--online {
+  color: #0c8a52;
+  background: #e8f7f0;
+}
+.account-badge--online text {
+  background: #12b26c;
+}
+
+/* ===== 未登录：账号卡可点击 ===== */
+.account-card--tappable {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.account-card--pressed {
+  transform: translateY(2rpx) scale(0.99);
+  box-shadow: 0 8rpx 22rpx rgba(35, 125, 156, 0.1);
+}
+.account-arrow {
+  margin-left: 8rpx;
+  color: var(--ha-muted);
+  font-size: 40rpx;
+  flex: none;
+}
+
+/* ===== 未登录：访客提示卡 ===== */
+.guest-tip {
+  margin: 28rpx;
+  padding: 76rpx 40rpx;
+  text-align: center;
+}
+.guest-tip__icon {
+  font-size: 76rpx;
+  line-height: 1;
+  color: var(--ha-primary);
+}
+.guest-tip__title {
+  margin-top: 24rpx;
+  font-size: 30rpx;
+  font-weight: 650;
+  color: var(--ha-text);
+}
+.guest-tip__copy {
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  color: var(--ha-muted);
+}
+
+/* ===== 登录按钮 ===== */
+.login-action {
+  display: flex;
+  width: 100%;
+  height: 100rpx;
+  margin: 28rpx 0 0;
+  padding: 0 18rpx;
+  align-items: center;
+  text-align: left;
+  background: #f2fafc;
+  border-radius: var(--ha-radius-small);
+}
+.login-action::after {
+  border-color: rgba(69, 167, 200, 0.3);
+}
+.login-action--pressed {
+  background: #e4f3f8;
+}
+.login-action__wechat {
+  display: flex;
+  width: 58rpx;
+  height: 58rpx;
+  margin-right: 16rpx;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 23rpx;
+  font-weight: 700;
+  background: #07c160;
+  border-radius: 50%;
+}
+.login-action__copy {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.3;
+}
+.login-action__copy text {
+  display: block;
+  color: var(--ha-text);
+  font-size: 26rpx;
+  font-weight: 700;
+}
+.login-action__copy view {
+  margin-top: 7rpx;
+  overflow: hidden;
+  color: var(--ha-muted);
+  font-size: 19rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.login-action__arrow {
+  color: var(--ha-muted);
+  font-size: 40rpx;
+}
+
+/* ===== 统计 + 操作 ===== */
+.account-actions {
+  margin-top: 24rpx;
+  padding-top: 22rpx;
+  border-top: 1rpx solid var(--ha-border);
+}
+.account-stats {
+  display: flex;
+  height: 76rpx;
+  align-items: center;
+}
+.account-stats > view {
+  flex: 1;
+  color: var(--ha-muted);
+  font-size: 19rpx;
+  text-align: center;
+}
+.account-stats > view text {
+  display: block;
+  color: var(--ha-text);
+  font-size: 32rpx;
+  font-weight: 750;
+}
+.account-stats__divider {
+  flex: none !important;
+  width: 1rpx;
+  height: 46rpx;
+  background: var(--ha-border);
+}
+.account-actions__commands {
+  display: flex;
+  gap: 14rpx;
+  margin-top: 18rpx;
+}
+.account-actions__commands button {
+  height: 66rpx;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  font-size: 22rpx;
+  line-height: 66rpx;
+  border-radius: var(--ha-radius-small);
+}
+.profile-edit-action {
+  color: var(--ha-primary-deep);
+  background: #edf6fa;
+}
+.profile-edit-action::after {
+  border-color: rgba(69, 167, 200, 0.35);
+}
+.logout-action {
+  color: #c74250;
+  background: #fff5f6;
+}
+.logout-action::after {
+  border-color: #f0cbd0;
+}
+.logout-action--pressed {
+  background: #ffecef !important;
+}
+
+/* ===== 身份信息卡（验证多用户隔离） ===== */
+.identity-card {
+  margin: 24rpx 28rpx 0;
+  padding: 24rpx 28rpx;
+}
+.identity-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+.identity-label {
+  flex: none;
+  font-size: 24rpx;
+  color: var(--ha-muted);
+}
+.identity-value {
+  flex: 1;
+  min-width: 0;
+  text-align: right;
+  font-size: 22rpx;
+  color: var(--ha-text);
+  word-break: break-all;
+}
+.identity-tip {
+  margin-top: 14rpx;
+  font-size: 21rpx;
+  color: var(--ha-muted);
+  line-height: 1.6;
+}
+.identity-copy {
+  margin: 18rpx 0 0;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 22rpx;
+  color: var(--ha-primary-deep);
+  background: rgba(69, 167, 200, 0.1);
+  border-radius: var(--ha-radius-small);
+}
+.identity-copy::after {
+  border: none;
+}
+
+/* ===== 照片区 ===== */
+.my-photos {
+  padding: 24rpx 28rpx 0;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 8rpx 4rpx 24rpx;
+}
+.section-title text {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--ha-text);
+}
+.section-count {
+  padding: 2rpx 14rpx;
+  font-size: 22rpx !important;
+  font-weight: 600 !important;
+  color: var(--ha-primary-deep) !important;
+  background: rgba(69, 167, 200, 0.1);
+  border-radius: 999rpx;
+}
+
+/* ===== 照片缩略图网格（三列方格，替代整宽大卡片） ===== */
+.photo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+.photo-grid-item {
+  width: calc((100% - 24rpx) / 3);
+  aspect-ratio: 1 / 1;
+  border-radius: 12rpx;
+  overflow: hidden;
+  background: #f0f3f7;
+  border: 1rpx solid rgba(255, 166, 88, 0.35);
+}
+.photo-grid-item--hover { opacity: 0.82; }
+.photo-grid-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== 资料编辑弹窗（底部浮层） ===== */
+.editor-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: rgba(8, 24, 35, 0.48);
+}
+.profile-editor {
+  position: fixed;
+  right: 24rpx;
+  bottom: calc(48rpx + env(safe-area-inset-bottom));
+  left: 24rpx;
+  z-index: 160;
+  max-height: calc(100vh - 190rpx - env(safe-area-inset-bottom));
+  padding: 30rpx;
+  overflow-y: auto;
+  background: var(--ha-surface);
+  border-radius: var(--ha-radius);
+  box-shadow: 0 20rpx 60rpx rgba(8, 24, 35, 0.24);
+  box-sizing: border-box;
+}
+.profile-editor__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.profile-editor__heading text {
+  color: var(--ha-text);
+  font-size: 32rpx;
+  font-weight: 700;
+}
+.profile-editor__heading view view {
+  margin-top: 7rpx;
+  color: var(--ha-muted);
+  font-size: 20rpx;
+}
+.profile-editor__heading button {
+  width: 58rpx;
+  height: 58rpx;
+  margin: -8rpx -8rpx 0 0;
+  padding: 0;
+  color: var(--ha-muted);
+  font-size: 38rpx;
+  font-weight: 300;
+  line-height: 58rpx;
+  background: transparent;
+}
+.profile-editor__heading button::after {
+  border: 0;
+}
+
+/* 头像选择 */
+.avatar-editor {
+  padding: 30rpx 0 22rpx;
+  text-align: center;
+}
+.avatar-picker {
+  width: 146rpx;
+  margin: 0 auto;
+  padding: 0;
+  background: transparent;
+}
+.avatar-picker::after {
+  border: 0;
+}
+.avatar-picker image {
+  display: block;
+  width: 126rpx;
+  height: 126rpx;
+  margin: 0 auto;
+  border: 5rpx solid #e8f4f8;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.avatar-picker__hint {
+  margin-top: 12rpx;
+  color: var(--ha-primary-deep);
+  font-size: 22rpx;
+  line-height: 1.2;
+}
+.avatar-picker .avatar-picker__empty {
+  display: flex;
+  width: 126rpx;
+  height: 126rpx;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  color: var(--ha-primary);
+  font-size: 54rpx;
+  font-weight: 300;
+  line-height: 1;
+  background: #edf6fa;
+  border: 3rpx dashed rgba(69, 167, 200, 0.5);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+/* 昵称输入 */
+.name-editor {
+  display: flex;
+  height: 90rpx;
+  padding: 0 20rpx;
+  align-items: center;
+  background: #f4f7f8;
+  border: 1rpx solid var(--ha-border);
+  border-radius: var(--ha-radius-small);
+  box-sizing: border-box;
+}
+.name-editor > text {
+  flex: none;
+  margin-right: 22rpx;
+  color: var(--ha-text);
+  font-size: 24rpx;
+}
+.name-editor input {
+  flex: 1;
+  min-width: 0;
+  color: var(--ha-text);
+  font-size: 27rpx;
+}
+
+/* 保存按钮 */
+.profile-save {
+  height: 78rpx;
+  margin: 26rpx 0 0;
+  color: #fff;
+  font-size: 27rpx;
+  font-weight: 650;
+  line-height: 78rpx;
+  background: var(--ha-primary);
+  border-radius: var(--ha-radius-small);
+}
+.profile-save::after {
+  border: 0;
+}
+.profile-save[loading]::before {
+  margin-right: 8rpx;
+}

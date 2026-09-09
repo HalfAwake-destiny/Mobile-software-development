@@ -1,0 +1,70 @@
+/**app.wxss**/
+/* === 设计 tokens（参考博客 half-awake 主题） === */
+page {
+  --ha-primary: #45a7c8;
+  --ha-primary-deep: #237d9c;
+  --ha-accent: #eb8fa4;
+  --ha-highlight: #e9b949;
+  --ha-page-bg: #f5f7fa;
+  --ha-surface: #ffffff;
+  --ha-text: #252a35;
+  --ha-muted: #697386;
+  --ha-border: #dfe5ec;
+  --ha-radius: 16rpx;
+  --ha-radius-small: 8rpx;
+  /* 阴影加大一档，让白卡在浅灰底上能看出来 */
+  --ha-shadow: 0 4rpx 20rpx rgba(25, 35, 50, 0.09);
+  background: var(--ha-page-bg);
+  color: var(--ha-text);
+  font-size: 28rpx;
+  line-height: 1.55;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+}
+
+view, text, image, button, input, navigator, scroll-view { box-sizing: border-box; }
+
+button { padding: 0; background: transparent; line-height: 1.4; }
+button::after { border: none; }
+
+.page-bg { min-height: 100vh; background: var(--ha-page-bg); padding: 24rpx 28rpx 96rpx; }
+
+.empty-tip {
+  text-align: center;
+  color: var(--ha-muted);
+  font-size: 26rpx;
+  padding: 80rpx 0;
+}
+
+.loading-tip {
+  text-align: center;
+  color: var(--ha-muted);
+  font-size: 24rpx;
+  padding: 24rpx 0;
+}
+
+/* 通用卡片：边缘一圈淡橙色，向内渐隐到透明（inset 阴影自带径向衰减） */
+.ha-card {
+  background: var(--ha-surface);
+  border: 1rpx solid rgba(255, 166, 88, 0.5);
+  border-radius: var(--ha-radius);
+  box-shadow:
+    inset 0 0 0 1rpx rgba(255, 166, 88, 0.22),
+    inset 0 0 26rpx 6rpx rgba(255, 166, 88, 0.16),
+    0 4rpx 20rpx rgba(25, 35, 50, 0.08);
+  overflow: hidden;
+}
+
+/* 通用胶囊按钮 */
+.ha-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14rpx 28rpx;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.ha-pill-primary { background: var(--ha-primary); color: #fff; }
+.ha-pill-primary:active { background: var(--ha-primary-deep); opacity: 0.9; }
+.ha-pill-ghost { background: rgba(69, 167, 200, 0.1); color: var(--ha-primary-deep); }

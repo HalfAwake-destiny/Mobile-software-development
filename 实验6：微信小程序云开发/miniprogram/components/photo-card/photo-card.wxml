@@ -1,0 +1,26 @@
+<!--components/photo-card/photo-card.wxml-->
+<view class="ha-card photo-card" hover-class="ha-card-hover">
+  <!-- 卡片页眉：头像 + 昵称 + 所在地 -->
+  <view class="photo-card-head" wx:if="{{showUploader}}">
+    <view class="head-avatar-wrap" hover-class="head-avatar-hover" hover-stay-time="80" bindtap="onTapAvatar">
+      <image class="head-avatar" src="{{photo.avatarTempUrl || photo.avatarUrl}}" mode="aspectFill"></image>
+    </view>
+    <view class="head-info">
+      <text class="head-name">{{photo.nickName || '匿名用户'}}</text>
+      <text class="head-loc">{{photo.locationText}}</text>
+    </view>
+  </view>
+
+  <!-- 卡片主体：图片，点击进详情 -->
+  <view class="photo-card-body" bindtap="onTapImage" hover-class="photo-card-body-hover" hover-stay-time="80">
+    <image wx:if="{{photo.tempUrl}}" class="photo-img" src="{{photo.tempUrl}}" mode="widthFix"></image>
+    <view wx:else class="photo-img photo-img-placeholder">
+      <text>图片加载中</text>
+    </view>
+  </view>
+
+  <!-- 卡片页脚：上传日期 -->
+  <view class="photo-card-foot">
+    <text class="foot-date">{{photo.addDate}}</text>
+  </view>
+</view>

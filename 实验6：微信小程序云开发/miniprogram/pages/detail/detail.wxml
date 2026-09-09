@@ -1,0 +1,31 @@
+<!--pages/detail/detail.wxml-->
+<view class="page-bg detail-page" wx:if="{{photo}}">
+  <!-- 顶部图片展示 -->
+  <view class="detail-photo-wrap ha-card">
+    <image class="detail-photo" src="{{photo.tempUrl}}" mode="widthFix" bindtap="previewPhoto"></image>
+  </view>
+
+  <!-- 上传者信息 -->
+  <view class="ha-card uploader">
+    <image class="uploader-avatar" src="{{photo.avatarTempUrl || photo.avatarUrl}}" mode="aspectFill"></image>
+    <view class="uploader-info">
+      <text class="uploader-name">{{photo.nickName || '匿名用户'}}</text>
+      <text class="uploader-loc">{{photo.locationText}}</text>
+    </view>
+    <text class="uploader-date">{{photo.addDate}}</text>
+  </view>
+
+  <!-- 操作按钮（删除仅上传者本人可见） -->
+  <view class="actions">
+    <button class="ha-pill ha-pill-primary action-btn" bindtap="downloadPhoto">下载到本地</button>
+    <button
+      class="ha-pill {{isFav ? 'fav-btn--on' : 'fav-btn'}} action-btn"
+      bindtap="toggleFavorite"
+    >{{isFav ? '★ 已收藏' : '☆ 收藏'}}</button>
+    <button class="ha-pill ha-pill-ghost action-btn" open-type="share" bindtap="sharePhoto">分享给好友</button>
+    <button class="ha-pill ha-pill-ghost action-btn" bindtap="previewPhoto">全屏预览</button>
+    <button wx:if="{{isMine}}" class="ha-pill delete-btn action-btn" bindtap="deletePhoto">删除照片</button>
+  </view>
+</view>
+<view wx:elif="{{!loading}}" class="empty-tip">照片不存在或已被删除</view>
+<view wx:if="{{loading}}" class="loading-tip">加载中…</view>

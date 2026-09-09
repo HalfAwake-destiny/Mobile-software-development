@@ -1,0 +1,96 @@
+/* pages/add/add.wxss */
+.add-page { padding-top: 16rpx; }
+
+.user-bar {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 24rpx 28rpx;
+  margin-bottom: 28rpx;
+}
+.user-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: rgba(69, 167, 200, 0.12);
+  flex: 0 0 auto;
+}
+.user-info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.user-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--ha-text);
+}
+.user-loc {
+  margin-top: 4rpx;
+  font-size: 24rpx;
+  color: var(--ha-muted);
+}
+.user-btn { flex: 0 0 auto; }
+
+/* 上传大按钮 */
+.upload-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 56rpx 24rpx;
+  margin-bottom: 32rpx;
+  background: linear-gradient(135deg, rgba(69, 167, 200, 0.1), rgba(235, 143, 164, 0.08));
+  border: 2rpx dashed rgba(69, 167, 200, 0.4);
+  box-shadow: none;
+}
+.upload-box-hover { background: linear-gradient(135deg, rgba(69, 167, 200, 0.18), rgba(235, 143, 164, 0.14)); }
+.upload-plus {
+  font-size: 64rpx;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--ha-primary);
+}
+.upload-label {
+  font-size: 28rpx;
+  color: var(--ha-primary-deep);
+  font-weight: 600;
+}
+
+/* 历史记录 */
+.history { padding: 0 0 24rpx; }
+.history-title {
+  padding: 24rpx 28rpx 16rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--ha-text);
+  border-bottom: 1rpx solid var(--ha-border);
+}
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12rpx;
+  padding: 16rpx 20rpx 0;
+}
+.history-item {
+  border-radius: 12rpx;
+  overflow: hidden;
+  background: #f0f3f7;
+  position: relative;
+}
+.history-item-hover { opacity: 0.85; }
+.history-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f0f3f7;
+}
+.history-meta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 6rpx 10rpx;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+}
+.history-date {
+  font-size: 20rpx;
+  color: #fff;
+}
